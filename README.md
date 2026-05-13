@@ -125,6 +125,9 @@ git push
 
 Vercel picks it up automatically from the connected GitHub repo.
 
+## live demo
+https://hamzepro.vercel.app/
+
 ---
 
 *Built by Muhammad Ali Eesa · Hamza Productions · Pakistan*
