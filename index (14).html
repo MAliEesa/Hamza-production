@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamza Productions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="photos/pexels-mohsinshabbir-30665958.jpg">
+<link rel="preload" as="image" href="photos/pexels-aksbykas-5106895.jpg">
+<link rel="preload" as="image" href="photos/pexels-ameerhamza6-7998727.jpg">
+<link rel="preload" as="image" href="photos/Minar_e_Pakistan.jpg">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --gold: #C9A84C;
+    --gold-deep: #A8832A;
+    --gold-light: #E2C47A;
+    --gold-pale: #1E1708;
+    --gold-mid: #2E2210;
+    --bg: #0D0C0A;
+    --bg-alt: #111008;
+    --text: #F0E8D6;
+    --text-muted: #9A8A6A;
+    --border: rgba(201, 168, 76, 0.18);
+    --border-strong: rgba(201, 168, 76, 0.35);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.7rem 1.5rem 0.7rem 1.5rem;
+    background: rgba(13,12,10,0.97); backdrop-filter: blur(20px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.12);
+    border-radius: 100px;
+    border: 1.5px solid rgba(201,168,76,0.22);
+    width: fit-content; min-width: 750px;
+    gap: 2rem;
+    opacity: 0; animation: navFadeIn 1.4s ease 0.3s forwards;
+  }
+  @keyframes navFadeIn {
+    0% { opacity: 0; transform: translateX(-50%) scaleX(0.4); }
+    60% { opacity: 1; transform: translateX(-50%) scaleX(1.03); }
+    100% { opacity: 1; transform: translateX(-50%) scaleX(1); }
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; opacity: 0; animation: fadeUp 0.8s ease 1.6s forwards; }
+  .logo-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; box-shadow: 0 0 8px rgba(201,168,76,0.5); }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 0.5rem; list-style: none; justify-content: center; }
+  .nav-links li { opacity: 0; }
+  .nav-links li:nth-child(1) { animation: fadeUp 0.6s ease 2s forwards; }
+  .nav-links li:nth-child(2) { animation: fadeUp 0.6s ease 2.3s forwards; }
+  .nav-links li:nth-child(3) { animation: fadeUp 0.6s ease 2.6s forwards; }
+  .nav-links li:nth-child(4) { animation: fadeUp 0.6s ease 2.9s forwards; }
+  .nav-links li:nth-child(5) { animation: fadeUp 0.6s ease 3.2s forwards; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.88rem; font-weight: 600; padding: 0.5rem 1.4rem; border-radius: 100px; border: 1.5px solid rgba(201,168,76,0.18); background: rgba(201,168,76,0.04); transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); display: inline-block; }
+  .nav-links a:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); color: var(--gold-light); transform: scale(1.12); }
+  .nav-links a.active { background: linear-gradient(135deg, var(--gold), var(--gold-deep)); border-color: var(--gold); color: #0D0C0A; box-shadow: 0 4px 16px rgba(201,168,76,0.35); font-weight: 700; }
+  .nav-links a:active { transform: scale(1.28) !important; }
+  .nav-links a.active:hover { transform: scale(1.15); }
+
+  .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 90px; overflow: hidden; position: relative; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem 5rem 5rem; position: relative; max-width: 600px; }
+  .hero-left::before { content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, var(--border-strong), transparent); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
+  @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold-pale); color: var(--gold-light); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 2rem; width: fit-content; animation: fadeUp 0.8s ease both; border: 1px solid rgba(201,168,76,0.25); }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; box-shadow: 0 0 6px rgba(201,168,76,0.6); }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 4.5vw, 4.2rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; animation: fadeUp 0.8s 0.1s ease both; }
+  .hero-title em { background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: normal; font-weight: 900; animation: shimmer 3s linear infinite; }
+  .hero-sub { font-size: 1rem; font-weight: 500; color: var(--text-muted); line-height: 1.8; max-width: 420px; margin-bottom: 2.5rem; animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
+
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); color: #0D0C0A; text-decoration: none; font-size: 0.9rem; font-weight: 700; border-radius: 100px; transition: all 0.25s; box-shadow: 0 4px 20px rgba(201,168,76,0.3); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,0.45); filter: brightness(1.1); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; background: rgba(201,168,76,0.06); color: var(--gold-light); text-decoration: none; font-size: 0.9rem; font-weight: 600; border-radius: 100px; border: 1.5px solid rgba(201,168,76,0.4); transition: all 0.25s; }
+  .btn-secondary:hover { background: rgba(201,168,76,0.14); border-color: var(--gold); transform: translateY(-2px); }
+
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); animation: fadeUp 0.8s 0.4s ease both; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--gold); }
+  .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; font-weight: 600; letter-spacing: 0.04em; }
+
+  .hero-right { position: relative; overflow: hidden; background: var(--gold-pale); }
+  .hero-slider { position: relative; width: 100%; height: 100%; }
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+  .slide.active { opacity: 1; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slide-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(30,23,8,0.65) 0%, transparent 45%); }
+  .slide-label { position: absolute; bottom: 1.5rem; left: 1.5rem; background: rgba(13,12,10,0.82); backdrop-filter: blur(8px); color: var(--gold-light); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 100px; border: 1px solid rgba(201,168,76,0.35); }
+  .slider-dots { position: absolute; bottom: 1.5rem; right: 1.5rem; display: flex; gap: 0.4rem; z-index: 10; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(201,168,76,0.4); cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
+  .dot.active { background: var(--gold); width: 18px; border-radius: 3px; box-shadow: 0 0 8px rgba(201,168,76,0.5); }
+
+  .explore-strip { background: var(--bg-alt); padding: 5rem; border-top: 1px solid var(--border); }
+  .strip-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3rem; }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; line-height: 1.2; color: var(--text); }
+  .see-all { color: var(--gold); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; margin-bottom: 0.4rem; transition: gap 0.2s; }
+  .see-all:hover { gap: 0.8rem; color: var(--gold-light); }
+
+  .destinations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  .dest-card { border-radius: 16px; overflow: hidden; position: relative; aspect-ratio: 3/4; cursor: pointer; text-decoration: none; display: block; border: 1px solid rgba(201,168,76,0.1); transition: border-color 0.3s; }
+  .dest-card:hover { border-color: rgba(201,168,76,0.4); }
+  .dest-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; opacity: 0.82; }
+  .dest-card:hover img { transform: scale(1.06); }
+  .dest-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(30,23,8,0.88) 0%, transparent 50%); }
+  .dest-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.2rem; }
+  .dest-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: #F0E8D6; margin-bottom: 0.3rem; }
+  .dest-tag { font-size: 0.72rem; font-weight: 500; color: var(--gold-light); letter-spacing: 0.06em; }
+
+  .video-section { padding: 5rem; background: var(--bg); border-top: 1px solid var(--border); }
+  .video-wrap { margin-top: 3rem; border-radius: 20px; overflow: hidden; aspect-ratio: 16/7; position: relative; background: var(--gold-pale); border: 1px solid var(--border); }
+  .video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .services { padding: 5rem; background: var(--bg-alt); border-top: 1px solid var(--border); }
+  .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .service-card { background: #15120A; border-radius: 20px; padding: 2.5rem; border: 1.5px solid rgba(201,168,76,0.18); text-decoration: none; color: var(--text); display: block; transition: all 0.3s; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent); opacity: 0; transition: opacity 0.3s; }
+  .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold-deep), var(--gold-light)); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .service-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(201,168,76,0.08); }
+  .service-card:hover::before { opacity: 1; }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--gold-pale); border: 1px solid rgba(201,168,76,0.25); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem; }
+  .service-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text); }
+  .service-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .service-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--gold); }
+
+  .cta-section { margin: 5rem; border-radius: 24px; background: linear-gradient(135deg, #1E1708 0%, #2A1F0A 50%, #1A1306 100%); padding: 5rem; text-align: center; position: relative; overflow: hidden; border: 1px solid rgba(201,168,76,0.35); box-shadow: 0 0 80px rgba(201,168,76,0.06); }
+  .cta-section::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); }
+  .cta-section::after { content: ''; position: absolute; bottom: -80px; left: -40px; width: 250px; height: 250px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%); }
+  .cta-title { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; position: relative; z-index: 1; }
+  .cta-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+  .btn-white { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); color: #0D0C0A; text-decoration: none; font-size: 0.9rem; font-weight: 700; border-radius: 100px; transition: all 0.25s; position: relative; z-index: 1; box-shadow: 0 4px 20px rgba(201,168,76,0.3); }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.5); filter: brightness(1.1); }
+
+  footer { background: #080706; color: #C8B898; border-top: 1px solid var(--border); }
+  .footer-top { padding: 4rem 5rem; display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+  .footer-logo span { color: var(--gold); }
+  .footer-logo .logo-dot { background: var(--gold); box-shadow: 0 0 8px rgba(201,168,76,0.5); }
+  .footer-tagline { font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 0.8rem; letter-spacing: 0.04em; }
+  .footer-desc { font-size: 0.85rem; color: #7A6A4E; line-height: 1.7; font-weight: 500; max-width: 280px; margin-bottom: 1.5rem; }
+  .footer-socials { display: flex; gap: 0.6rem; }
+  .social-btn { width: 38px; height: 38px; border-radius: 50%; background: rgba(201,168,76,0.06); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; transition: all 0.2s; border: 1px solid rgba(201,168,76,0.2); }
+  .social-btn:hover { background: rgba(201,168,76,0.18); border-color: var(--gold); }
+  .footer-links-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .footer-col { display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.5rem; }
+  .footer-col a { font-size: 0.85rem; color: #7A6A4E; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { padding: 1.5rem 5rem; display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-size: 0.78rem; color: #4A3E2C; font-weight: 500; }
+  .footer-bottom-links { display: flex; gap: 1.5rem; }
+  .footer-bottom-links a { font-size: 0.78rem; color: #4A3E2C; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .footer-bottom-links a:hover { color: #7A6A4E; }
+
+  .tour-overlay { position: fixed; inset: 0; z-index: 500; display: flex; align-items: flex-start; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; overflow-y: auto; padding: 2rem 1rem; }
+  .tour-overlay.open { opacity: 1; pointer-events: all; }
+  .tour-overlay-bg { position: fixed; inset: 0; background: rgba(8,7,6,0.92); backdrop-filter: blur(6px); z-index: 0; }
+  .tour-modal { position: relative; z-index: 1; background: #111008; border: 1.5px solid rgba(201,168,76,0.35); border-radius: 24px; width: 100%; max-width: 820px; padding: 3rem; margin: auto; transform: translateY(40px); transition: transform 0.4s cubic-bezier(0.34,1.1,0.64,1); box-shadow: 0 40px 100px rgba(0,0,0,0.7); }
+  .tour-overlay.open .tour-modal { transform: translateY(0); }
+  .tour-close { position: absolute; top: 1.2rem; right: 1.2rem; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); color: var(--gold); width: 36px; height: 36px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .tour-close:hover { background: rgba(201,168,76,0.2); }
+  .tour-modal-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; margin-bottom: 0.4rem; }
+  .tour-modal-title em { background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: normal; animation: shimmer 3s linear infinite; }
+  .tour-modal-sub { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 2.5rem; }
+  .t-block { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .t-block:last-of-type { border-bottom: none; margin-bottom: 1.5rem; }
+  .t-block-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .t-block-title::before { content: ''; width: 16px; height: 1px; background: var(--gold); }
+  .t-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .t-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .t-field.full { grid-column: 1/-1; }
+  .t-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; }
+  .t-input { background: rgba(13,12,10,0.9); border: 1.5px solid rgba(201,168,76,0.2); border-radius: 10px; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.88rem; padding: 0.7rem 1rem; width: 100%; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+  .t-input:focus { border-color: var(--gold); }
+  .t-input::placeholder { color: var(--text-muted); opacity: 0.5; }
+  .t-input option { background: #15120A; }
+  .t-phone-row { display: flex; gap: 0.5rem; }
+  .t-phone-row .t-input:first-child { width: 130px; flex-shrink: 0; }
+  .t-phone-row .t-input:last-child { flex: 1; }
+  .province-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 0.8rem; }
+  .t-province-btn { background: rgba(13,12,10,0.9); border: 1.5px solid rgba(201,168,76,0.2); border-radius: 8px; color: var(--text-muted); font-size: 0.78rem; font-weight: 600; padding: 0.55rem 0.4rem; cursor: pointer; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; }
+  .t-province-btn:hover { border-color: rgba(201,168,76,0.5); color: var(--gold-light); }
+  .t-province-btn.sel { background: linear-gradient(135deg, var(--gold), var(--gold-deep)); border-color: var(--gold); color: #0D0C0A; font-weight: 700; }
+  .t-cities-wrap { display: none; flex-wrap: wrap; gap: 0.4rem; padding: 0.8rem; background: rgba(13,12,10,0.6); border-radius: 10px; border: 1px solid rgba(201,168,76,0.15); margin-bottom: 0.8rem; }
+  .t-cities-wrap.vis { display: flex; }
+  .t-city-chip { background: rgba(13,12,10,0.9); border: 1px solid rgba(201,168,76,0.2); border-radius: 100px; color: var(--text-muted); font-size: 0.76rem; font-weight: 500; padding: 0.28rem 0.8rem; cursor: pointer; transition: all 0.15s; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .t-city-chip:hover { border-color: rgba(201,168,76,0.5); color: var(--gold-light); }
+  .t-city-chip.sel { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold-light); font-weight: 600; }
+  .t-cities-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; width: 100%; margin-bottom: 0.3rem; }
+  .t-sel-display { font-size: 0.8rem; color: var(--text-muted); min-height: 1.2rem; margin-top: 0.4rem; }
+  .t-sel-display b { color: var(--gold); font-weight: 600; }
+  .t-budget-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--gold); margin-bottom: 0.5rem; }
+  .t-range { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: rgba(201,168,76,0.2); border-radius: 2px; outline: none; background-image: linear-gradient(var(--gold),var(--gold)); background-size: 25% 100%; background-repeat: no-repeat; border: none; padding: 0; }
+  .t-range::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); cursor: pointer; border: 2px solid #0D0C0A; }
+  .t-range::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); cursor: pointer; border: 2px solid #0D0C0A; }
+  .t-currency-grid { display: flex; justify-content: center; gap: 0.6rem; margin-top: 0.8rem; }
+  .t-cur-btn { min-width: 80px; }
+  .t-cur-btn { background: rgba(13,12,10,0.9); border: 1.5px solid rgba(201,168,76,0.2); border-radius: 7px; color: var(--text-muted); font-size: 0.76rem; font-weight: 600; padding: 0.45rem 0.2rem; cursor: pointer; text-align: center; transition: all 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .t-cur-btn.sel { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold); }
+  .t-chips-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .t-chip { background: rgba(13,12,10,0.9); border: 1.5px solid rgba(201,168,76,0.2); border-radius: 100px; color: var(--text-muted); font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.9rem; cursor: pointer; transition: all 0.18s; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .t-chip:hover { border-color: rgba(201,168,76,0.5); color: var(--gold-light); }
+  .t-chip.sel { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold-light); }
+  .hotel-bar { display: grid; grid-template-columns: repeat(5,1fr); border: 1.5px solid rgba(201,168,76,0.2); border-radius: 10px; overflow: hidden; }
+  .hotel-opt { background: rgba(13,12,10,0.9); color: var(--text-muted); font-size: 0.72rem; font-weight: 600; padding: 0.8rem 0.3rem; cursor: pointer; text-align: center; border-right: 1px solid rgba(201,168,76,0.15); font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; line-height: 1.4; }
+  .hotel-opt:last-child { border-right: none; }
+  .hotel-opt.sel { background: rgba(201,168,76,0.18); color: var(--gold-light); border-bottom: 2px solid var(--gold); }
+  .t-textarea { background: rgba(13,12,10,0.9); border: 1.5px solid rgba(201,168,76,0.2); border-radius: 10px; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.88rem; padding: 0.7rem 1rem; width: 100%; outline: none; resize: vertical; min-height: 80px; line-height: 1.6; transition: border-color 0.2s; }
+  .t-textarea:focus { border-color: var(--gold); }
+  .t-textarea::placeholder { color: var(--text-muted); opacity: 0.5; }
+  .t-submit { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); color: #0D0C0A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 700; border: none; border-radius: 100px; cursor: pointer; transition: all 0.25s; margin-top: 0.5rem; }
+  .t-submit:hover { filter: brightness(1.1); transform: translateY(-2px); }
+  .t-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .t-success { text-align: center; padding: 2rem; display: none; }
+  .t-success.show { display: block; }
+  .t-success h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 0.5rem; }
+  .t-success p { color: var(--text-muted); font-size: 0.88rem; }
+  .whatsapp-hint { font-size: 0.73rem; color: var(--gold); margin-top: 0.3rem; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .hero-left::before { display: none; }
+    .hero-right { height: 320px; }
+    .explore-strip, .video-section, .services { padding: 3rem 1.5rem; }
+    .destinations-grid { grid-template-columns: 1fr 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .cta-section { margin: 2rem 1.5rem; padding: 3rem 1.5rem; }
+    .cta-title { font-size: 1.8rem; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; padding: 1.5rem; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.5rem; }
+    .footer-bottom { padding: 1rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tour-overlay" id="tourOverlay">
+  <div class="tour-overlay-bg" onclick="closeTour()"></div>
+  <div class="tour-modal">
+    <button class="tour-close" onclick="closeTour()">✕</button>
+    <h2 class="tour-modal-title">Plan Your <em>Pakistan Tour</em></h2>
+    <p class="tour-modal-sub">Fill in your details — Hamza will respond within 24 hours via WhatsApp.</p>
+
+    <form id="tourForm" novalidate>
+
+      <div class="t-block">
+        <div class="t-block-title">Your Details</div>
+        <div class="t-row">
+          <div class="t-field">
+            <div class="t-label">Full Name *</div>
+            <input class="t-input" type="text" id="t_name" placeholder="Ahmed Khan" required>
+          </div>
+          <div class="t-field">
+            <div class="t-label">Country *</div>
+            <input class="t-input" type="text" id="t_country" placeholder="e.g. United Kingdom" required>
+          </div>
+          <div class="t-field">
+            <div class="t-label">WhatsApp Number *</div>
+            <div class="t-phone-row">
+              <select class="t-input" id="t_dial">
+                <option value="+92">🇵🇰 +92</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+971">🇦🇪 +971</option><option value="+966">🇸🇦 +966</option><option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option><option value="+61">🇦🇺 +61</option><option value="+81">🇯🇵 +81</option><option value="+86">🇨🇳 +86</option><option value="+91">🇮🇳 +91</option><option value="+55">🇧🇷 +55</option><option value="+7">🇷🇺 +7</option><option value="+27">🇿🇦 +27</option><option value="+90">🇹🇷 +90</option><option value="+39">🇮🇹 +39</option><option value="+34">🇪🇸 +34</option>
+              </select>
+              <input class="t-input" type="tel" id="t_phone" placeholder="3xx xxxxxxx" required>
+            </div>
+            <div class="whatsapp-hint">✓ Must have active WhatsApp</div>
+          </div>
+          <div class="t-field">
+            <div class="t-label">Email Address *</div>
+            <input class="t-input" type="email" id="t_email" placeholder="you@example.com" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-block">
+        <div class="t-block-title">Places to Visit in Pakistan</div>
+        <div class="province-grid" id="t_provinceGrid">
+          <button type="button" class="t-province-btn" data-p="Punjab">Punjab</button>
+          <button type="button" class="t-province-btn" data-p="Sindh">Sindh</button>
+          <button type="button" class="t-province-btn" data-p="KPK">KPK</button>
+          <button type="button" class="t-province-btn" data-p="Balochistan">Balochistan</button>
+          <button type="button" class="t-province-btn" data-p="Gilgit-Baltistan">Gilgit-Baltistan</button>
+          <button type="button" class="t-province-btn" data-p="AJK">AJK</button>
+          <button type="button" class="t-province-btn" data-p="ICT">Islamabad</button>
+          <button type="button" class="t-province-btn" data-p="FATA">FATA</button>
+        </div>
+        <div id="t_citiesContainer"></div>
+        <div class="t-sel-display" id="t_selDisplay">No cities selected.</div>
+        <input type="hidden" id="t_destinations">
+      </div>
+
+      <div class="t-block">
+        <div class="t-block-title">Budget</div>
+        <div class="t-budget-num" id="t_budgetNum">50,000 PKR</div>
+        <input type="range" class="t-range" id="t_slider" min="10000" max="2000000" value="50000" step="5000">
+        <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-top:0.4rem"><span id="t_rMin">10,000</span><span id="t_rMax">2,000,000</span></div>
+        <div class="t-currency-grid" id="t_curGrid">
+          <button type="button" class="t-cur-btn sel" data-c="PKR" data-l="Pakistani Rupee" data-min="10000" data-max="2000000" data-def="50000">PKR</button>
+          <button type="button" class="t-cur-btn" data-c="USD" data-l="US Dollar" data-min="100" data-max="10000" data-def="500">USD</button>
+        </div>
+        <input type="hidden" id="t_budget">
+      </div>
+
+      
+
+      <div class="t-block">
+        <div class="t-block-title">Accommodation Style</div>
+        <div class="hotel-bar" id="t_hotelBar">
+          <button type="button" class="hotel-opt" data-h="Camping / Tent">⛺<br>Camping</button>
+          <button type="button" class="hotel-opt" data-h="Guesthouse / B&B">🏡<br>B&B</button>
+          <button type="button" class="hotel-opt sel" data-h="Standard Hotel">🏨<br>Standard</button>
+          <button type="button" class="hotel-opt" data-h="Luxury / 5-Star">🌟<br>Luxury</button>
+          <button type="button" class="hotel-opt" data-h="Villa / Resort">🏰<br>Villa</button>
+        </div>
+        <input type="hidden" id="t_hotel" value="Standard Hotel">
+      </div>
+
+      <div class="t-block">
+        <div class="t-block-title">Trip Preferences</div>
+        <div class="t-row" style="margin-bottom:1rem">
+          <div class="t-field">
+            <div class="t-label">Group Size</div>
+            <select class="t-input" id="t_group">
+              <option value="">Select</option>
+              <option>Solo</option><option>Couple (2)</option><option>Small Group (3–5)</option><option>Medium Group (6–10)</option><option>Large Group (10+)</option>
+            </select>
+          </div>
+          <div class="t-field">
+            <div class="t-label">Trip Duration</div>
+            <select class="t-input" id="t_duration">
+              <option value="">Select</option>
+              <option>Weekend (2–3 days)</option><option>Short Trip (4–6 days)</option><option>One Week</option><option>Two Weeks</option><option>3+ Weeks</option>
+            </select>
+          </div>
+        </div>
+        <div class="t-label" style="margin-bottom:0.6rem">Trip Taste</div>
+        <div class="t-chips-grid" id="t_tripTypes" style="margin-bottom:1rem">
+          <button type="button" class="t-chip" data-tt="Adventure / Trekking">Adventure / Trekking</button>
+          <button type="button" class="t-chip" data-tt="Cultural / Historical">Cultural / Historical</button>
+          <button type="button" class="t-chip" data-tt="Nature / Wildlife">Nature / Wildlife</button>
+          <button type="button" class="t-chip" data-tt="Food Tour">Food Tour</button>
+          <button type="button" class="t-chip" data-tt="Photography Trip">Photography Trip</button>
+          <button type="button" class="t-chip" data-tt="Honeymoon / Romantic">Honeymoon / Romantic</button>
+          <button type="button" class="t-chip" data-tt="Family Friendly">Family Friendly</button>
+          <button type="button" class="t-chip" data-tt="Religious / Spiritual">Religious / Spiritual</button>
+        </div>
+        <div class="t-label" style="margin-bottom:0.4rem">Notes / Special Requests</div>
+        <textarea class="t-textarea" id="t_notes" placeholder="Dietary needs, dates, specific experiences, anything else..."></textarea>
+      </div>
+
+      <div class="t-success" id="t_success">
+        <h3>🎉 Request Sent!</h3>
+        <p>Hamza will contact you within 24 hours via WhatsApp to plan your perfect trip.</p>
+      </div>
+
+      <button type="submit" class="t-submit" id="t_submitBtn">Send My Tour Request →</button>
+    </form>
+  </div>
+</div>
+
+<div id="page-overlay" style="position:fixed; inset:0; background:#0D0C0A; z-index:9999; transform:translateY(0); transition:transform 0.7s cubic-bezier(0.76,0,0.24,1); pointer-events:none;"></div>
+
+<div id="destOverlay" style="position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease;padding:1.5rem;">
+  <div onclick="closeDestModal()" style="position:fixed;inset:0;background:rgba(8,7,6,0.92);backdrop-filter:blur(6px);"></div>
+  <div id="destModal" style="position:relative;z-index:1;background:#111008;border:1.5px solid rgba(201,168,76,0.35);border-radius:24px;width:100%;max-width:780px;max-height:90vh;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none;box-shadow:0 40px 100px rgba(0,0,0,0.7);transform:translateY(32px);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);">
+    <button onclick="closeDestModal()" style="position:absolute;top:1rem;right:1rem;z-index:10;background:rgba(13,12,10,0.8);border:1px solid rgba(201,168,76,0.3);color:#C9A84C;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div id="destModalImg" style="width:100%;height:420px;overflow:hidden;cursor:grab;user-select:none;">
+      <img id="destModalImgEl" src="" alt="" style="width:100%;height:100%;object-fit:contain;object-position:center;background:#0D0C0A;display:block;pointer-events:none;">
+    </div>
+    <div style="padding:2rem 2.5rem 2.5rem;">
+      <div id="destModalTag" style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#C9A84C;margin-bottom:0.5rem;"></div>
+      <h2 id="destModalName" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#F0E8D6;margin-bottom:1rem;"></h2>
+      <p id="destModalDesc" style="font-size:0.92rem;color:#9A8A6A;line-height:1.8;margin-bottom:2rem;"></p>
+      <button id="destModalBookBtn" onclick="bookFromModal()" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.9rem 2rem;background:linear-gradient(135deg,#C9A84C,#A8832A);color:#0D0C0A;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;font-weight:700;border:none;border-radius:100px;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 20px rgba(201,168,76,0.3);">Book This Tour <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</div>
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-dot"></div>
+    Hamza <span>Productions</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="work.html" onclick="navigateTo(event,'work.html')">Projects</a></li>
+    <li><a href="reviews.html" onclick="navigateTo(event,'reviews.html')">Reviews</a></li>
+    <li><a href="websitecreation.html" onclick="navigateTo(event,'websitecreation.html')">Website Creation</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+<div style="position:absolute; inset:0; z-index:0; pointer-events:none;">
+    <img src="photos/Copilot_20260506_214021.png" style="width:100%; height:100%; object-fit:cover; object-position:center center;">
+  <div style="position:absolute; inset:0; background:linear-gradient(to right, rgba(13,12,10,0.65) 0%, rgba(13,12,10,0.3) 55%, rgba(13,12,10,0.05) 100%);"></div>
+</div>
+  <div class="hero-left" style="position:relative; z-index:1;">
+    <div class="hero-badge">Based in Pakistan</div>
+    <h1 class="hero-title">Hamza's<br><em>Production</em></h1>
+    <p class="hero-sub">Videographer/Cinematographer and photographer<br><br>Now accepting projects for Adventure and personal content creation.</p>
+    <div class="hero-buttons">
+      <a href="#" onclick="openTour(); return false;" class="btn-primary">
+        Plan Your Tour
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg>
+      </a>
+      <a href="work.html" class="btn-secondary" onclick="navigateTo(event,'work.html')">View Our Work</a>
+      <a href="websitecreation.html" class="btn-secondary" onclick="navigateTo(event,'websitecreation.html')">Website Creation</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">50+</div><div class="stat-label">Tours Completed</div></div>
+      <div><div class="stat-num">30+</div><div class="stat-label">Videos Produced</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">Happy Clients</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="explore-strip">
+  <div class="strip-header">
+    <div>
+      <div class="section-label">Explore Pakistan</div>
+      <h2 class="section-title">Popular Destinations</h2>
+    </div>
+    <a href="#" onclick="openTour(); return false;" class="see-all">See all tours <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg></a>
+  </div>
+  <div class="destinations-grid">
+    <a href="#" onclick="openDestModal('Islamabad'); return false;" class="dest-card">
+      <img src="photos/pexels-mohsinshabbir-30665958.jpg" alt="Islamabad" loading="eager">
+      <div class="dest-overlay"></div>
+      <div class="dest-info"><div class="dest-name">Islamabad</div><div class="dest-tag">Capital City</div></div>
+    </a>
+    <a href="#" onclick="openDestModal('Sindh'); return false;" class="dest-card">
+      <img src="photos/pexels-aksbykas-5106895.jpg" alt="Sindh" loading="eager">
+      <div class="dest-overlay"></div>
+      <div class="dest-info"><div class="dest-name">Sindh</div><div class="dest-tag">Southern Pakistan</div></div>
+    </a>
+    <a href="#" onclick="openDestModal('Swat Valley'); return false;" class="dest-card">
+      <img src="photos/pexels-ameerhamza6-7998727.jpg" alt="Swat Valley" loading="eager">
+      <div class="dest-overlay"></div>
+      <div class="dest-info"><div class="dest-name">Swat Valley</div><div class="dest-tag">KPK Province</div></div>
+    </a>
+    <a href="#" onclick="openDestModal('Lahore'); return false;" class="dest-card">
+      <img src="photos/Minar_e_Pakistan.jpg" alt="Lahore" loading="eager">
+      <div class="dest-overlay"></div>
+      <div class="dest-info"><div class="dest-name">Lahore</div><div class="dest-tag">Cultural Heart</div></div>
+    </a>
+  </div>
+</section>
+
+<section class="video-section">
+  <div>
+    <div style="background:var(--gold-pale); border-radius:16px; overflow:hidden; border:1px solid var(--border);">
+      <div style="aspect-ratio:16/9; background:#090806; position:relative; overflow:hidden; width:100%;">
+        <video autoplay loop muted playsinline id="siteVideo" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+          <source src="videos/trailor0001-1904.mp4" type="video/mp4">
+        </video>
+        <button onclick="toggleSiteMute(this)" style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;">🔇</button>
+        <button onclick="openSiteModal()" style="position:absolute;bottom:10px;right:52px;background:rgba(0,0,0,0.5);border:none;border-radius:4px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:white;">⤢</button>
+      </div>
+      <div style="padding:1.4rem 1.5rem;">
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;">Road Disappear Stories Begins</div>
+        <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;">Wrapped another project that pushed the cinematic vision to another level. 🎬❄️</div>
+        <div id="site-vid-full" style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.5s ease;"></div>
+        <button onclick="var d=document.getElementById('site-vid-full');var open=d.style.maxHeight!=='0px'&&d.style.maxHeight!=='';if(open){d.style.maxHeight='0px';this.textContent='Read more ▼';}else{d.innerHTML='<br>Had the opportunity to collaborate with some of the biggest names in the adventure and offroading community of Pakistan, including Abdul Vahab Viance and Qasim Umer, alongside Off-road titans.<br><br>Edited and color graded a snow expedition trailer in a movie-trailer style — reel focused on building intensity, atmosphere, emotion, and scale through storytelling, sound design, pacing, and cinematic visuals.<br><br>From the freezing landscapes to the raw expedition energy, every frame was crafted to feel immersive and larger than life.<br><br>Projects like these are the reason I love filmmaking — turning real adventures into cinematic experiences.<br><br>Reel link <a href=\'https://lnkd.in/dus3iPyj\' target=\'_blank\' style=\'color:var(--gold);text-decoration:none;font-weight:600;\'>https://lnkd.in/dus3iPyj</a>';d.style.maxHeight='600px';this.textContent='Show less ▲';}" style="background:none;border:none;color:var(--gold);font-size:0.82rem;font-weight:600;cursor:pointer;padding:0.4rem 0;margin-top:0.3rem;display:block;font-family:'Plus Jakarta Sans',sans-serif;">Read more ▼</button>
+        <span style="display:inline-block;margin-top:0.8rem;font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);padding:0.25rem 0.75rem;border-radius:100px;">Cinematography</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO MODAL -->
+<div id="siteVidModal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.92);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;">
+  <button onclick="closeSiteModal()" style="position:fixed;top:1.2rem;right:1.5rem;background:rgba(0,0,0,0.6);border:1px solid rgba(201,168,76,0.4);color:#C9A84C;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;">✕</button>
+  <div style="width:100%;height:100vh;position:relative;background:#000;">
+    <video id="siteModalVid" autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+    <button id="siteModalMuteBtn" onclick="toggleSiteModalMute()" style="position:absolute;bottom:1rem;right:1rem;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:38px;height:38px;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">🔊</button>
+  </div>
+  <div style="padding:2rem;background:#000;position:relative;z-index:1;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#F0E8D6;margin-bottom:0.5rem;">Road Disappear Stories Begins</div>
+    <div style="font-size:0.92rem;color:#9A8A6A;line-height:1.8;">Wrapped another project that pushed the cinematic vision to another level. 🎬❄️<br><br>Had the opportunity to collaborate with some of the biggest names in the adventure and offroading community of Pakistan, including Abdul Vahab Viance and Qasim Umer, alongside Off-road titans.<br><br>Edited and color graded a snow expedition trailer in a movie-trailer style — reel focused on building intensity, atmosphere, emotion, and scale through storytelling, sound design, pacing, and cinematic visuals.<br><br>From the freezing landscapes to the raw expedition energy, every frame was crafted to feel immersive and larger than life.<br><br>Projects like these are the reason I love filmmaking — turning real adventures into cinematic experiences.<br><br>Reel link <a href="https://lnkd.in/dus3iPyj" target="_blank" style="color:#C9A84C;text-decoration:none;font-weight:600;">https://lnkd.in/dus3iPyj</a></div>
+  </div>
+</div>
+
+<style>
+  #site-vid-full.open { max-height:600px; }
+  #destModal::-webkit-scrollbar { display:none; }
+#siteVidModal::-webkit-scrollbar { display:none; }
+</style>
+
+<script>
+function toggleSiteMute(btn) {
+  const v = document.getElementById('siteVideo');
+  v.muted = !v.muted;
+  btn.textContent = v.muted ? '🔇' : '🔊';
+}
+function openSiteModal() {
+  const v = document.getElementById('siteModalVid');
+  v.src = 'videos/trailor0001-1904.mp4';
+  v.muted = false;
+  v.currentTime = 0;
+  v.play();
+  document.getElementById('siteModalMuteBtn').textContent = '🔊';
+  document.getElementById('siteVidModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeSiteModal() {
+  const v = document.getElementById('siteModalVid');
+  v.pause();
+  v.src = '';
+  document.getElementById('siteVidModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { if (document.getElementById('siteVidModal').style.display === 'block') closeSiteModal(); } });
+function toggleSiteModalMute() {
+  const v = document.getElementById('siteModalVid');
+  v.muted = !v.muted;
+  document.getElementById('siteModalMuteBtn').textContent = v.muted ? '🔇' : '🔊';
+}
+</script>
+<section class="services" id="services">
+  <div class="strip-header">
+    <div>
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Our Services</h2>
+    </div>
+  </div>
+  <div class="services-grid">
+    <a href="#" onclick="openTour(); return false;" class="service-card">
+      <div class="service-icon">🏔️</div>
+      <div class="service-name">Tourism & Travel</div>
+      <p class="service-desc">Custom guided tours across Pakistan's most iconic and hidden destinations. From international visitors to local adventurers — we handle everything.</p>
+      <span class="service-link">Plan your trip <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg></span>
+    </a>
+    <a href="https://www.linkedin.com/in/hamza-faraz-59a1a7306?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="service-card">
+      <div class="service-icon">🎬</div>
+      <div class="service-name">Cinematic Videography</div>
+      <p class="service-desc">Professional video production for weddings, events, brands and documentaries. Every frame crafted with intention — your story told beautifully.</p>
+      <span class="service-link">View LinkedIn Portfolio <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<div class="cta-section">
+  <h2 class="cta-title">Ready to Start Your Journey?</h2>
+  <p class="cta-sub">Tell us where you want to go — we'll take care of the rest.</p>
+  <a href="#" onclick="openTour(); return false;" class="btn-white">Get Started <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg></a>  
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><div class="logo-dot"></div>Hamza <span>Productions</span></div>
+      <p class="footer-tagline">Explore Pakistan. Capture Every Moment.</p>
+      <p class="footer-desc">Based in Pakistan, serving travelers and brands worldwide with premium tourism experiences and cinematic video production.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">📘</a>
+        <a href="#" class="social-btn">📸</a>
+        <a href="#" class="social-btn">▶️</a>
+        <a href="#" class="social-btn">💼</a>
+      </div>
+    </div>
+    <div class="footer-links-group" style="grid-template-columns: 1fr;">
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#">About Us</a>
+        <a href="#">Our Work</a>
+        <a href="#">Contact</a>
+        <a href="#">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Hamza Productions — Pakistan. All rights reserved.</div>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Page transition
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const overlay = document.getElementById('page-overlay');
+      overlay.style.transform = 'translateY(-100%)';
+    }, 100);
+  const siteVid = document.getElementById('siteVideo');
+    if (siteVid) { siteVid.play(); }
+  });
+
+  /* dest-card images always visible */
+
+  function navigateTo(e, url) {
+    e.preventDefault();
+    const overlay = document.getElementById('page-overlay');
+    overlay.style.transition = 'transform 0.6s cubic-bezier(0.76,0,0.24,1)';
+    overlay.style.transform = 'translateY(0)';
+    setTimeout(() => { window.location.href = url; }, 600);
+  }
+
+  // ── Tour modal ───────────────────────────────────────────────────
+  const destData = {
+    'Islamabad': { img: 'photos/pexels-mohsinshabbir-30665958.jpg', tag: 'Capital City', province: 'ICT', city: 'Islamabad', desc: 'A city of wide boulevards, lush greenery, and striking modernist architecture. Islamabad sits at the foot of the Margalla Hills and offers everything from serene hiking trails to vibrant food streets. Clean, safe, and beautifully planned — it\'s Pakistan\'s most liveable city.' },
+    'Sindh': { img: 'photos/pexels-aksbykas-5106895.jpg', tag: 'Southern Pakistan', province: 'Sindh', city: '', desc: 'Home to the ancient Indus Valley civilisation, Sindh is a land of timeless heritage. Explore the ruins of Mohenjo-daro, the bustling streets of Karachi, the tranquil Indus river delta, and centuries-old Sufi shrines that pulse with music and devotion.' },
+    'Swat Valley': { img: 'photos/pexels-ameerhamza6-7998727.jpg', tag: 'KPK Province', province: 'KPK', city: 'Swat', desc: 'Called the Switzerland of Pakistan for good reason — Swat is a valley of emerald rivers, alpine meadows, and snow-capped peaks. It\'s a paradise for trekkers, nature lovers, and those seeking cool mountain air away from the city heat.' },
+    'Lahore': { img: 'photos/Minar_e_Pakistan.jpg', tag: 'Cultural Heart', province: 'Punjab', city: 'Lahore', desc: 'The soul of Pakistan. Lahore is where Mughal grandeur meets modern energy — from the Badshahi Mosque and Lahore Fort to legendary food streets and a nightlife that never really sleeps. No visit to Pakistan is complete without it.' }
+  };
+  let destModalTarget = { province: '', city: '' };
+
+  (function(){
+    const box = document.getElementById('destModalImg');
+    let isDragging = false, startX = 0, startY = 0, posX = 0, posY = 0, curX = 0, curY = 0;
+    box.addEventListener('mousedown', e => {
+      isDragging = true; startX = e.clientX - curX; startY = e.clientY - curY;
+      box.style.cursor = 'grabbing';
+      e.preventDefault(); e.stopPropagation();
+    });
+    document.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      e.preventDefault(); e.stopPropagation();
+      curX = e.clientX - startX; curY = e.clientY - startY;
+      document.getElementById('destModalImgEl').style.transform = `translate(${curX}px,${curY}px)`;
+    });
+    document.addEventListener('mouseup', () => { isDragging = false; box.style.cursor = 'grab'; });
+  })();
+
+  function openDestModal(name) {
+    const d = destData[name]; if (!d) return;
+    const imgEl = document.getElementById('destModalImgEl');
+    imgEl.style.transform = 'translate(0px,0px)';
+    imgEl.src = d.img;
+    document.getElementById('destModalImgEl').alt = name;
+    document.getElementById('destModalTag').textContent = d.tag;
+    document.getElementById('destModalName').textContent = name;
+    document.getElementById('destModalDesc').textContent = d.desc;
+    destModalTarget = { province: d.province, city: d.city };
+    const ov = document.getElementById('destOverlay');
+    ov.style.opacity = '1'; ov.style.pointerEvents = 'all';
+    document.getElementById('destModal').style.transform = 'translateY(0)';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDestModal() {
+    const ov = document.getElementById('destOverlay');
+    ov.style.opacity = '0'; ov.style.pointerEvents = 'none';
+    document.getElementById('destModal').style.transform = 'translateY(32px)';
+    document.body.style.overflow = '';
+  }
+  function bookFromModal() {
+    closeDestModal();
+    setTimeout(() => { openTourTo(destModalTarget.province, destModalTarget.city); }, 300);
+  }
+
+  function openTour() {
+    document.getElementById('tourOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function openTourTo(province, city) {
+    tSelCities = {};
+    document.querySelectorAll('.t-province-btn').forEach(b => b.classList.remove('sel'));
+    document.getElementById('t_citiesContainer').innerHTML = '';
+    tUpdateCities();
+    openTour();
+    setTimeout(() => {
+      const btn = document.querySelector(`.t-province-btn[data-p="${province}"]`);
+      if (btn) {
+        btn.click();
+        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      if (city) {
+        setTimeout(() => {
+          document.querySelectorAll('.t-city-chip').forEach(ch => {
+            if (ch.textContent === city) { ch.click(); }
+          });
+        }, 100);
+      }
+    }, 400);
+  }
+  function closeTour() {
+    document.getElementById('tourOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (document.getElementById('destOverlay').style.opacity === '1') { closeDestModal(); return; }
+    if (document.getElementById('tourOverlay').classList.contains('open')) { closeTour(); return; }
+  });
+  const tCities = {
+    'Punjab':['Lahore','Rawalpindi','Faisalabad','Gujranwala','Multan','Sialkot','Gujrat','Sheikhupura','Sargodha','Bahawalpur','Rahim Yar Khan','Kasur','Dera Ghazi Khan','Jhelum','Sahiwal','Okara','Mianwali','Chiniot','Hafizabad','Narowal','Attock','Chakwal'],
+    'Sindh':['Karachi','Hyderabad','Sukkur','Larkana','Nawabshah','Khairpur','Mirpur Khas','Jacobabad','Thatta','Badin','Dadu','Sanghar','Tharparkar','Ghotki','Umerkot'],
+    'KPK':['Peshawar','Mardan','Swat','Abbottabad','Mansehra','Kohat','Nowshera','Haripur','Charsadda','Bannu','Dera Ismail Khan','Swabi','Buner','Dir (Upper)','Dir (Lower)','Chitral','Kalam','Mingora'],
+    'Balochistan':['Quetta','Turbat','Khuzdar','Gwadar','Hub','Chaman','Zhob','Loralai','Kalat','Panjgur','Mastung'],
+    'Gilgit-Baltistan':['Gilgit','Skardu','Hunza','Nagar','Ghanche','Ghizer','Diamer','Astore','Shigar'],
+    'AJK':['Muzaffarabad','Mirpur','Kotli','Rawalakot','Bagh','Neelum','Poonch'],
+    'ICT':['Islamabad','Margalla Hills','Saidpur Village','Rawal Lake'],
+    'FATA':['Bajaur','Mohmand','Khyber','Kurram','North Waziristan','South Waziristan']
+  };
+  let tSelCities = {};
+
+  document.getElementById('t_provinceGrid').addEventListener('click', e => {
+    const btn = e.target.closest('.t-province-btn'); if (!btn) return;
+    const p = btn.dataset.p;
+    document.querySelectorAll('.t-province-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    if (!tSelCities[p]) tSelCities[p] = [];
+    const con = document.getElementById('t_citiesContainer');
+    con.innerHTML = '';
+    const wrap = document.createElement('div'); wrap.className = 't-cities-wrap vis';
+    wrap.innerHTML = `<div class="t-cities-label">${p}</div>`;
+    tCities[p].forEach(city => {
+      const ch = document.createElement('button'); ch.type = 'button'; ch.className = 't-city-chip' + (tSelCities[p].includes(city) ? ' sel' : ''); ch.textContent = city;
+      ch.addEventListener('click', () => {
+        const i = tSelCities[p].indexOf(city);
+        if (i === -1) { tSelCities[p].push(city); ch.classList.add('sel'); } else { tSelCities[p].splice(i,1); ch.classList.remove('sel'); }
+        tUpdateCities();
+      });
+      wrap.appendChild(ch);
+    });
+    con.appendChild(wrap);
+  });
+  function tUpdateCities() {
+    const parts = [];
+    for (const [prov, cities] of Object.entries(tSelCities)) { if (cities.length) parts.push(`<b>${prov}:</b> ${cities.join(', ')}`); }
+    document.getElementById('t_selDisplay').innerHTML = parts.length ? parts.join(' | ') : 'No cities selected.';
+    const flat = []; for (const c of Object.values(tSelCities)) flat.push(...c);
+    document.getElementById('t_destinations').value = flat.join(', ');
+  }
+
+  const tSlider = document.getElementById('t_slider');
+  function tUpdateBudget() {
+    const v = parseInt(tSlider.value); const cur = document.querySelector('.t-cur-btn.sel')?.dataset.c || 'PKR';
+    document.getElementById('t_budgetNum').textContent = v.toLocaleString() + ' ' + cur;
+    const pct = (v - parseInt(tSlider.min)) / (parseInt(tSlider.max) - parseInt(tSlider.min)) * 100;
+    tSlider.style.backgroundSize = pct + '% 100%';
+    document.getElementById('t_budget').value = v + ' ' + cur;
+  }
+  tSlider.addEventListener('input', tUpdateBudget);
+
+  document.getElementById('t_curGrid').addEventListener('click', e => {
+    const btn = e.target.closest('.t-cur-btn'); if (!btn) return;
+    document.querySelectorAll('.t-cur-btn').forEach(b => b.classList.remove('sel')); btn.classList.add('sel');
+    tSlider.min = btn.dataset.min; tSlider.max = btn.dataset.max; tSlider.step = btn.dataset.c === 'USD' ? '10' : '5000'; tSlider.value = btn.dataset.def;
+    document.getElementById('t_rMin').textContent = parseInt(btn.dataset.min).toLocaleString();
+    document.getElementById('t_rMax').textContent = parseInt(btn.dataset.max).toLocaleString();
+    tUpdateBudget();
+  });
+  tUpdateBudget();
+
+  document.getElementById('t_banksGrid').addEventListener('click', e => {
+    const btn = e.target.closest('.t-chip[data-b]'); if (!btn) return;
+    btn.classList.toggle('sel');
+    document.getElementById('t_payment').value = [...document.querySelectorAll('.t-chip[data-b].sel')].map(b=>b.dataset.b).join(', ');
+  });
+
+  document.getElementById('t_hotelBar').addEventListener('click', e => {
+    const btn = e.target.closest('.hotel-opt'); if (!btn) return;
+    document.querySelectorAll('#t_hotelBar .hotel-opt').forEach(b=>b.classList.remove('sel')); btn.classList.add('sel');
+    document.getElementById('t_hotel').value = btn.dataset.h;
+  });
+
+  document.getElementById('t_tripTypes').addEventListener('click', e => {
+    const btn = e.target.closest('.t-chip[data-tt]'); if (!btn) return;
+    btn.classList.toggle('sel');
+  });
+
+  document.getElementById('tourForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('t_submitBtn');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const tripTypes = [...document.querySelectorAll('.t-chip[data-tt].sel')].map(b=>b.dataset.tt).join(', ') || 'Not specified';
+    // ── Replace these with your EmailJS credentials when ready ──
+    // const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+    // const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+    // const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    // await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { ... });
+    // ── For now, just show success ────────────────────────────────
+    setTimeout(() => {
+      document.getElementById('t_success').classList.add('show');
+      btn.style.display = 'none';
+    }, 800);
+  });
+
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  setInterval(() => {
+    goToSlide((current + 1) % slides.length);
+  }, 3500);
+</script>
+</body>
+</html>

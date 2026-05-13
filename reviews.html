@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Hamza Productions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --gold: #C9A84C;
+    --gold-deep: #A8832A;
+    --gold-light: #E2C47A;
+    --gold-pale: #1E1708;
+    --bg: #0D0C0A;
+    --bg-alt: #111008;
+    --text: #F0E8D6;
+    --text-muted: #9A8A6A;
+    --border: rgba(201, 168, 76, 0.18);
+    --border-strong: rgba(201, 168, 76, 0.35);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; overflow-x: hidden; }
+
+  /* ── PAGE TRANSITION OVERLAY ── */
+  #page-overlay {
+    position: fixed; inset: 0; background: var(--bg); z-index: 9999;
+    transform: translateY(0); transition: transform 0.7s cubic-bezier(0.76,0,0.24,1);
+    pointer-events: none;
+  }
+  #page-overlay.hidden { transform: translateY(-100%); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.7rem 1.5rem;
+    background: rgba(13,12,10,0.97); backdrop-filter: blur(20px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.12);
+    border-radius: 100px;
+    border: 1.5px solid rgba(201,168,76,0.22);
+    width: fit-content; min-width: 750px;
+    gap: 2rem;
+    opacity: 0; animation: navFadeIn 1.4s ease 0.3s forwards;
+  }
+  @keyframes navFadeIn {
+    0% { opacity: 0; transform: translateX(-50%) scaleX(0.4); }
+    60% { opacity: 1; transform: translateX(-50%) scaleX(1.03); }
+    100% { opacity: 1; transform: translateX(-50%) scaleX(1); }
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+  .logo-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; box-shadow: 0 0 8px rgba(201,168,76,0.5); }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 0.5rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.88rem; font-weight: 600; padding: 0.5rem 1.4rem; border-radius: 100px; border: 1.5px solid rgba(201,168,76,0.18); background: rgba(201,168,76,0.04); transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); display: inline-block; }
+  .nav-links a:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); color: var(--gold-light); transform: scale(1.12); }
+  .nav-links a.active { background: linear-gradient(135deg, var(--gold), var(--gold-deep)); border-color: var(--gold); color: #0D0C0A; box-shadow: 0 4px 16px rgba(201,168,76,0.35); font-weight: 700; }
+
+  /* ── HERO ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
+
+  .reviews-hero {
+    padding: 9rem 5rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .reviews-hero::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold-pale); color: var(--gold-light); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; border: 1px solid rgba(201,168,76,0.25); animation: fadeUp 0.8s ease both; }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; box-shadow: 0 0 6px rgba(201,168,76,0.6); }
+  .reviews-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.2rem; animation: fadeUp 0.8s 0.1s ease both; }
+  .reviews-hero h1 em { background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: normal; animation: shimmer 3s linear infinite; }
+  .reviews-hero p { color: var(--text-muted); font-size: 1rem; max-width: 500px; margin: 0 auto 3rem; line-height: 1.8; animation: fadeUp 0.8s 0.2s ease both; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: flex; justify-content: center; gap: 4rem;
+    padding: 2.5rem 5rem;
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-item { text-align: center; animation: fadeUp 0.8s ease both; }
+  .stat-item:nth-child(1) { animation-delay: 0.1s; }
+  .stat-item:nth-child(2) { animation-delay: 0.2s; }
+  .stat-item:nth-child(3) { animation-delay: 0.3s; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--gold); }
+  .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── STARS ── */
+  .stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 0.5rem; }
+
+  /* ── CLIENT REVIEWS ── */
+  .section { padding: 5rem; }
+  .section-alt { background: var(--bg-alt); }
+  .section-header { margin-bottom: 3rem; }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--text); }
+
+  /* ── FILTER TABS ── */
+  .filter-tabs {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .filter-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.3rem;
+    border-radius: 100px;
+    border: 1.5px solid rgba(201,168,76,0.22);
+    background: rgba(201,168,76,0.04);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    user-select: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .filter-tab:hover {
+    background: rgba(201,168,76,0.10);
+    border-color: var(--gold);
+    color: var(--gold-light);
+    transform: translateY(-1px);
+  }
+  .filter-tab.active {
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    border-color: var(--gold);
+    color: #0D0C0A;
+    box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+    font-weight: 700;
+  }
+  .filter-tab .tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: rgba(0,0,0,0.15);
+    transition: background 0.2s;
+  }
+  .filter-tab.active .tab-count {
+    background: rgba(0,0,0,0.18);
+  }
+
+  /* ── REVIEWS GRID ── */
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .review-card {
+    background: #15120A;
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1.5px solid rgba(201,168,76,0.18);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    animation: fadeUp 0.7s ease both;
+  }
+  .review-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(201,168,76,0.08); }
+  .review-card::before { content: '"'; position: absolute; top: -0.5rem; right: 1.5rem; font-family: 'Playfair Display', serif; font-size: 8rem; color: rgba(201,168,76,0.06); line-height: 1; pointer-events: none; }
+  .review-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold-deep), var(--gold-light)); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .review-card:hover::after { transform: scaleX(1); }
+
+  /* Cards that are hidden start hidden */
+  .review-card.hidden-card {
+    display: none;
+  }
+
+  /* Fade-in for newly revealed cards */
+  @keyframes cardReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .review-card.reveal {
+    animation: cardReveal 0.45s ease both;
+  }
+
+  .reviewer-info { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+  .reviewer-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-deep), var(--gold)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: #0D0C0A; flex-shrink: 0; border: 2px solid rgba(201,168,76,0.3); }
+  .reviewer-name { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .reviewer-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .review-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; }
+  .review-tag { display: inline-block; margin-top: 1.2rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.08); padding: 0.3rem 0.8rem; border-radius: 100px; border: 1px solid rgba(201,168,76,0.2); }
+
+  /* ── LOAD MORE ── */
+  .load-more-wrap {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+  .btn-load-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2.4rem;
+    border-radius: 100px;
+    border: 1.5px solid rgba(201,168,76,0.35);
+    background: rgba(201,168,76,0.06);
+    color: var(--gold-light);
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 0.02em;
+  }
+  .btn-load-more:hover {
+    background: rgba(201,168,76,0.14);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(201,168,76,0.15);
+  }
+  .btn-load-more.hidden-btn { display: none; }
+  .btn-load-more svg { transition: transform 0.2s; }
+  .btn-load-more:hover svg { transform: translateY(2px); }
+
+  /* No results message */
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    display: none;
+  }
+  .no-results.visible { display: block; }
+
+  /* ── FEATURED REVIEW ── */
+  .featured-review {
+    background: linear-gradient(135deg, #1E1708 0%, #2A1F0A 50%, #1A1306 100%);
+    border-radius: 24px;
+    padding: 3.5rem;
+    border: 1px solid rgba(201,168,76,0.35);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .featured-review::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); }
+  .featured-quote { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 2vw, 1.6rem); font-style: italic; color: var(--text); line-height: 1.6; margin-bottom: 2rem; position: relative; z-index: 1; }
+  .featured-reviewer { display: flex; align-items: center; gap: 1.2rem; position: relative; z-index: 1; }
+  .featured-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-deep), var(--gold-light)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #0D0C0A; border: 2px solid rgba(201,168,76,0.5); }
+  .featured-name { font-weight: 700; font-size: 1rem; color: var(--text); }
+  .featured-title { font-size: 0.8rem; color: var(--gold); margin-top: 0.2rem; }
+
+  /* ── INFLUENCER SECTION ── */
+  .influencer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .influencer-card {
+    background: #15120A;
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1.5px solid rgba(201,168,76,0.18);
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .influencer-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(201,168,76,0.08); }
+  .influencer-platform { width: 52px; height: 52px; border-radius: 14px; background: var(--gold-pale); border: 1px solid rgba(201,168,76,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+  .influencer-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .influencer-handle { font-size: 0.78rem; color: var(--gold); margin-bottom: 0.7rem; font-weight: 600; }
+  .influencer-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+  .influencer-followers { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.8rem; font-size: 0.75rem; font-weight: 600; color: var(--gold-light); background: rgba(201,168,76,0.08); padding: 0.3rem 0.8rem; border-radius: 100px; border: 1px solid rgba(201,168,76,0.2); }
+
+  /* ── CTA ── */
+  .cta-section { margin: 0 5rem 5rem; border-radius: 24px; background: linear-gradient(135deg, #1E1708 0%, #2A1F0A 50%, #1A1306 100%); padding: 5rem; text-align: center; position: relative; overflow: hidden; border: 1px solid rgba(201,168,76,0.35); }
+  .cta-section::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); }
+  .cta-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; position: relative; z-index: 1; }
+  .cta-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); color: #0D0C0A; text-decoration: none; font-size: 0.9rem; font-weight: 700; border-radius: 100px; transition: all 0.25s; position: relative; z-index: 1; box-shadow: 0 4px 20px rgba(201,168,76,0.3); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.5); filter: brightness(1.1); }
+
+/* ── CTA dynamic animations ── */
+.cta-section { transition: background 0.6s ease; position: relative; overflow: hidden; }
+
+@keyframes ctaFadeSwap {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.cta-swap { animation: ctaFadeSwap 0.45s ease both; }
+
+@keyframes floatPin {
+  0%   { transform: translateY(0) scale(1); opacity: 0.35; }
+  50%  { transform: translateY(-28px) scale(1.1); opacity: 0.65; }
+  100% { transform: translateY(0) scale(1); opacity: 0.35; }
+}
+.cta-pin {
+  position: absolute; font-size: 1.4rem; pointer-events: none;
+  animation: floatPin 3.5s ease-in-out infinite;
+}
+
+@keyframes shutterRing {
+  0%   { transform: translate(-50%,-50%) scale(0.5); opacity: 0.6; }
+  100% { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
+}
+.cta-shutter {
+  position: absolute; left: 50%; top: 50%;
+  width: 260px; height: 260px; border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.4);
+  pointer-events: none;
+  animation: shutterRing 2.2s ease-out infinite;
+}
+.cta-shutter:nth-child(2) { animation-delay: 0.7s; }
+.cta-shutter:nth-child(3) { animation-delay: 1.4s; }
+
+@keyframes reelSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes reelFade {
+  0%, 100% { opacity: 0.18; }
+  50%       { opacity: 0.45; }
+}
+@keyframes lightBeam {
+  0%   { opacity: 0; transform: scaleY(0.6) translateX(0); }
+  40%  { opacity: 0.18; }
+  60%  { opacity: 0.22; }
+  100% { opacity: 0; transform: scaleY(1.1) translateX(4px); }
+}
+@keyframes stripScroll {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+/* Film reel circles */
+.cta-reel {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.25);
+  pointer-events: none;
+  animation: reelSpin 8s linear infinite, reelFade 3s ease-in-out infinite;
+}
+.cta-reel::before, .cta-reel::after {
+  content: '';
+  position: absolute; inset: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201,168,76,0.2);
+}
+.cta-reel::after { inset: 28px; border-color: rgba(201,168,76,0.3); }
+
+.cta-reel-inner {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 140px; height: 140px;
+  pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.cta-reel-dot {
+  position: absolute;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(201,168,76,0.35);
+  animation: reelSpin 8s linear infinite;
+}
+
+/* Light beam */
+.cta-beam {
+  position: absolute;
+  right: 18%;
+  top: -10%;
+  width: 60px; height: 200%;
+  background: linear-gradient(180deg, rgba(201,168,76,0.12) 0%, transparent 100%);
+  transform-origin: top center;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+  animation: lightBeam 4s ease-in-out infinite;
+}
+.cta-beam:nth-child(2) { right: 28%; animation-delay: 1.2s; width: 40px; opacity: 0.7; }
+
+/* Film strip */
+.cta-strip-wrap {
+  position: absolute;
+  right: 2%;
+  top: 0; bottom: 0;
+  width: 28px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.2;
+}
+.cta-strip {
+  display: flex; flex-direction: column; gap: 4px;
+  animation: stripScroll 3s linear infinite;
+}
+.cta-frame {
+  width: 28px; height: 20px;
+  border: 1.5px solid rgba(201,168,76,0.7);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+  /* ── FOOTER ── */
+  footer { background: #080706; color: #C8B898; border-top: 1px solid var(--border); }
+  .footer-bottom { padding: 1.5rem 5rem; display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-size: 0.78rem; color: #4A3E2C; font-weight: 500; }
+  .footer-bottom-links { display: flex; gap: 1.5rem; }
+  .footer-bottom-links a { font-size: 0.78rem; color: #4A3E2C; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .footer-bottom-links a:hover { color: #7A6A4E; }
+
+  @media (max-width: 900px) {
+    nav { min-width: unset; padding: 0.7rem 1rem; gap: 1rem; }
+    .reviews-hero { padding: 8rem 1.5rem 3rem; }
+    .stats-bar { gap: 2rem; padding: 2rem 1.5rem; flex-wrap: wrap; }
+    .section { padding: 3rem 1.5rem; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .influencer-grid { grid-template-columns: 1fr; }
+    .cta-section { margin: 0 1.5rem 3rem; padding: 3rem 1.5rem; }
+    .cta-title { font-size: 1.8rem; }
+    .footer-bottom { padding: 1rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+    .filter-tabs { gap: 0.4rem; }
+    .filter-tab { padding: 0.45rem 1rem; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Page transition overlay -->
+<div id="page-overlay"></div>
+
+<nav>
+  <a href="index (14).html" class="logo" onclick="navigateTo(event, 'index (14).html')">
+    <div class="logo-dot"></div>
+    Hamza <span>Productions</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index (14).html" onclick="navigateTo(event, 'index (14).html')">Home</a></li>
+    <li><a href="work.html" onclick="navigateTo(event, 'work.html')">Projects</a></li>
+    <li><a href="reviews.html" class="active">Reviews</a></li>
+    <li><a href="websitecreation.html" onclick="navigateTo(event, 'websitecreation.html')">Website Creation</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="reviews-hero">
+  <div class="hero-badge">Trusted Worldwide</div>
+  <h1>What Our Clients<br><em>Say About Us</em></h1>
+  <p>Real stories from real travelers and clients — every review earned through passion, professionalism, and unforgettable experiences.</p>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">50+</div>
+    <div class="stat-label">Happy Clients</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5.0★</div>
+    <div class="stat-label">Average Rating</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">30+</div>
+    <div class="stat-label">Videos Produced</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Recommend Us</div>
+  </div>
+</div>
+
+<!-- FEATURED REVIEW -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-label">Featured Review</div>
+    <h2 class="section-title">Straight From The Heart</h2>
+  </div>
+  <div class="featured-review">
+    <div class="stars">★★★★★</div>
+    <p class="featured-quote">"Hamza completely transformed how I see Pakistan. Every location, every shot, every moment was planned with such care and passion. I've travelled with many guides and worked with many videographers — none come close to the level of dedication and artistry Hamza brings to his work. This is the real Pakistan, captured beautifully."</p>
+    <div class="featured-reviewer">
+      <div class="featured-avatar">A</div>
+      <div>
+        <div class="featured-name">Ahmad Al-Rashidi</div>
+        <div class="featured-title">Travel Blogger — Dubai, UAE 🇦🇪</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT REVIEWS -->
+<section class="section section-alt">
+  <div class="section-header">
+    <div class="section-label">Client Reviews</div>
+    <h2 class="section-title">Voices of Our Travellers</h2>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" data-filter="all">
+      All Reviews <span class="tab-count" id="count-all">12</span>
+    </button>
+    <button class="filter-tab" data-filter="tourism">
+      🧭 Tourism <span class="tab-count" id="count-tourism">5</span>
+    </button>
+    <button class="filter-tab" data-filter="cinematography">
+      🎬 Cinematography <span class="tab-count" id="count-cinematography">4</span>
+    </button>
+    <button class="filter-tab" data-filter="photography">
+      📸 Photography <span class="tab-count" id="count-photography">3</span>
+    </button>
+  </div>
+
+  <div class="reviews-grid" id="reviewsGrid">
+
+    <!-- Tourism Reviews -->
+    <div class="review-card" data-category="tourism">
+      <div class="stars">★★★★½ <small style="color:var(--text-muted);font-size:0.75rem;">4.6</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">J</div>
+        <div>
+          <div class="reviewer-name">James Fletcher</div>
+          <div class="reviewer-meta">London, UK 🇬🇧</div>
+        </div>
+      </div>
+      <p class="review-text">"I came to Pakistan with zero expectations and left completely blown away. Hamza's knowledge of the north is unmatched — Hunza, Skardu, Fairy Meadows — all in one trip. Flawless organisation."</p>
+      <span class="review-tag">Northern Tour</span>
+    </div>
+
+    <div class="review-card" data-category="tourism">
+      <div class="stars">★★★★ <small style="color:var(--text-muted);font-size:0.75rem;">4.1</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">K</div>
+        <div>
+          <div class="reviewer-name">Kenji Tanaka</div>
+          <div class="reviewer-meta">Tokyo, Japan 🇯🇵</div>
+        </div>
+      </div>
+      <p class="review-text">"Pakistan was on my bucket list for years — Hamza made it everything I dreamed of and more. The Swat Valley tour was breathtaking and perfectly paced. I'm already planning to come back."</p>
+      <span class="review-tag">Swat Valley Tour</span>
+    </div>
+
+    <div class="review-card" data-category="tourism">
+      <div class="stars">★★★★ <small style="color:var(--text-muted);font-size:0.75rem;">4.0</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">L</div>
+        <div>
+          <div class="reviewer-name">Lena Müller</div>
+          <div class="reviewer-meta">Berlin, Germany 🇩🇪</div>
+        </div>
+      </div>
+      <p class="review-text">"The cultural depth of this tour was unlike anything I've experienced. Hamza doesn't just show you places — he tells you their stories. K2 base camp was the adventure of a lifetime."</p>
+      <span class="review-tag">K2 Base Camp Trek</span>
+    </div>
+
+    <div class="review-card" data-category="tourism">
+      <div class="stars">★★★★ <small style="color:var(--text-muted);font-size:0.75rem;">3.9</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">R</div>
+        <div>
+          <div class="reviewer-name">Rania Al-Farsi</div>
+          <div class="reviewer-meta">Muscat, Oman 🇴🇲</div>
+        </div>
+      </div>
+      <p class="review-text">"As a solo female traveller I was nervous, but Hamza made everything feel safe and seamless. The Lahore cultural tour was rich, warm, and absolutely magical. Highly recommend."</p>
+      <span class="review-tag">Cultural Tour</span>
+    </div>
+
+    <div class="review-card" data-category="tourism">
+      <div class="stars">★★★★½ <small style="color:var(--text-muted);font-size:0.75rem;">4.8</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">T</div>
+        <div>
+          <div class="reviewer-name">Thomas Bernard</div>
+          <div class="reviewer-meta">Paris, France 🇫🇷</div>
+        </div>
+      </div>
+      <p class="review-text">"From Lahore's bustling bazaars to the silence of Deosai Plains — this journey covered everything. Hamza's attention to every detail, from hotels to hidden cafes, was exceptional."</p>
+      <span class="review-tag">Grand Pakistan Tour</span>
+    </div>
+
+    <!-- Cinematography Reviews -->
+    <div class="review-card" data-category="cinematography">
+      <div class="stars">★★★★ <small style="color:var(--text-muted);font-size:0.75rem;">3.7</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">S</div>
+        <div>
+          <div class="reviewer-name">Sara Mahmood</div>
+          <div class="reviewer-meta">Lahore, Pakistan 🇵🇰</div>
+        </div>
+      </div>
+      <p class="review-text">"Our wedding film exceeded every expectation. Hamza captured emotions I didn't even realise were happening. Every time I watch it I cry — in the best way possible. Truly cinematic work."</p>
+      <span class="review-tag">Wedding Film</span>
+    </div>
+
+    <div class="review-card" data-category="cinematography">
+      <div class="stars">★★★★½ <small style="color:var(--text-muted);font-size:0.75rem;">4.6</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">F</div>
+        <div>
+          <div class="reviewer-name">Fatima Zahra</div>
+          <div class="reviewer-meta">Karachi, Pakistan 🇵🇰</div>
+        </div>
+      </div>
+      <p class="review-text">"The brand video Hamza made for our restaurant went viral on Instagram. The cinematography, the colours, the storytelling — it felt like a Michelin-star production. Orders doubled in a week."</p>
+      <span class="review-tag">Brand Video</span>
+    </div>
+
+    <div class="review-card" data-category="cinematography">
+      <div class="stars">★★★★ <small style="color:var(--text-muted);font-size:0.75rem;">4.1</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">N</div>
+        <div>
+          <div class="reviewer-name">Nadia Hassan</div>
+          <div class="reviewer-meta">Islamabad, Pakistan 🇵🇰</div>
+        </div>
+      </div>
+      <p class="review-text">"Hired Hamza for our corporate event documentation. The final edit was polished, professional and delivered ahead of schedule. Our CEO was genuinely impressed. Will book again."</p>
+      <span class="review-tag">Corporate Event</span>
+    </div>
+
+    <div class="review-card" data-category="cinematography">
+      <div class="stars">★★★★ <small style="color:var(--text-muted);font-size:0.75rem;">4.0</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">Z</div>
+        <div>
+          <div class="reviewer-name">Zain Qureshi</div>
+          <div class="reviewer-meta">Dubai, UAE 🇦🇪</div>
+        </div>
+      </div>
+      <p class="review-text">"We needed a documentary-style film about our NGO's work in northern Pakistan. Hamza understood our mission instantly and delivered something that moved our entire board to tears. Incredible talent."</p>
+      <span class="review-tag">Documentary</span>
+    </div>
+
+    <!-- Photography Reviews -->
+    <div class="review-card" data-category="photography">
+      <div class="stars">★★★★ <small style="color:var(--text-muted);font-size:0.75rem;">3.9</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">M</div>
+        <div>
+          <div class="reviewer-name">Marco Rossi</div>
+          <div class="reviewer-meta">Milan, Italy 🇮🇹</div>
+        </div>
+      </div>
+      <p class="review-text">"As a travel photographer I'm hard to impress — but Hamza showed me angles and light I never would have found alone. His insider knowledge of Pakistan's hidden gems is extraordinary."</p>
+      <span class="review-tag">Photography Tour</span>
+    </div>
+
+    <div class="review-card" data-category="photography">
+      <div class="stars">★★★★½ <small style="color:var(--text-muted);font-size:0.75rem;">4.8</small></div>
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">A</div>
+        <div>
+          <div class="reviewer-name">Aisha Patel</div>
+          <div class="reviewer-meta">Mumbai, India 🇮🇳</div>
+        </div>
+      </div>
+      <p class="review-text">"The portrait session in the old city of Lahore was extraordinary. Hamza has a gift for finding light in impossible places. Every single frame was gallery-worthy. My portfolio transformed overnight."</p>
+      <span class="review-tag">Portrait Session</span>
+    </div>
+
+    <div class="no-results" id="noResults">No reviews found in this category yet.</div>
+  </div>
+
+  <!-- LOAD MORE BUTTON -->
+  <div class="load-more-wrap">
+    <button class="btn-load-more" id="loadMoreBtn" onclick="loadMore()">
+      Load More Reviews
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 1v12M1 7l6 6 6-6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- INFLUENCERS -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-label">Influencer Spotlight</div>
+    <h2 class="section-title">As Featured By</h2>
+  </div>
+  <div class="influencer-grid">
+
+    <a href="#" class="influencer-card">
+      <div class="influencer-platform">📸</div>
+      <div>
+        <div class="influencer-name">Add Influencer Name</div>
+        <div class="influencer-handle">@handle • Instagram</div>
+        <p class="influencer-desc">Write a short description about this influencer, what they said about their experience and what kind of content they create. You can update this with real details.</p>
+        <span class="influencer-followers">👥 000K Followers</span>
+      </div>
+    </a>
+
+    <a href="#" class="influencer-card">
+      <div class="influencer-platform">▶️</div>
+      <div>
+        <div class="influencer-name">Add Influencer Name</div>
+        <div class="influencer-handle">@handle • YouTube</div>
+        <p class="influencer-desc">Write a short description about this influencer, what they said about their experience and what kind of content they create. You can update this with real details.</p>
+        <span class="influencer-followers">👥 000K Subscribers</span>
+      </div>
+    </a>
+
+    <a href="#" class="influencer-card">
+      <div class="influencer-platform">🎵</div>
+      <div>
+        <div class="influencer-name">Add Influencer Name</div>
+        <div class="influencer-handle">@handle • TikTok</div>
+        <p class="influencer-desc">Write a short description about this influencer, what they said about their experience and what kind of content they create. You can update this with real details.</p>
+        <span class="influencer-followers">👥 000K Followers</span>
+      </div>
+    </a>
+
+    <a href="#" class="influencer-card">
+      <div class="influencer-platform">📘</div>
+      <div>
+        <div class="influencer-name">Add Influencer Name</div>
+        <div class="influencer-handle">@handle • Facebook</div>
+        <p class="influencer-desc">Write a short description about this influencer, what they said about their experience and what kind of content they create. You can update this with real details.</p>
+        <span class="influencer-followers">👥 000K Followers</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CTA — changes based on active tab -->
+<div class="cta-section" id="ctaSection">
+  <div class="cta-bg-anim" id="ctaBgAnim"></div>
+  <h2 class="cta-title" id="ctaTitle">Ready to Create Your Story?</h2>
+  <p class="cta-sub" id="ctaSub">Join our growing family of happy clients and travellers.</p>
+  <a href="tourism.html" onclick="navigateTo(event, 'tourism.html')" class="btn-primary" id="ctaBtn">
+    Plan Your Trip
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg>
+  </a>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Hamza Productions — Pakistan. All rights reserved.</div>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Page Transition ──
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('page-overlay').classList.add('hidden');
+    }, 100);
+  });
+
+  function navigateTo(e, url) {
+    e.preventDefault();
+    const overlay = document.getElementById('page-overlay');
+    overlay.style.transition = 'transform 0.6s cubic-bezier(0.76,0,0.24,1)';
+    overlay.style.transform = 'translateY(0)';
+    overlay.classList.remove('hidden');
+    setTimeout(() => { window.location.href = url; }, 600);
+  }
+
+  // ── Filter & Load More Logic ──
+  const CARDS_PER_PAGE = 6;
+  let activeFilter = 'all';
+  let visibleCount = 0;
+
+  function getAllCards() {
+    return Array.from(document.querySelectorAll('#reviewsGrid .review-card'));
+  }
+
+  function getFilteredCards() {
+    return getAllCards().filter(card => {
+      if (activeFilter === 'all') return true;
+      return card.dataset.category === activeFilter;
+    });
+  }
+
+  function renderCards() {
+    const allCards = getAllCards();
+    const filtered = getFilteredCards();
+
+    // Hide all cards first
+    allCards.forEach(card => {
+      card.classList.add('hidden-card');
+      card.classList.remove('reveal');
+    });
+
+    // Show up to visibleCount from filtered set
+    const toShow = filtered.slice(0, visibleCount);
+    toShow.forEach((card, i) => {
+      card.classList.remove('hidden-card');
+      // Stagger reveal animation
+      setTimeout(() => card.classList.add('reveal'), i * 60);
+    });
+
+    // No results
+    const noResults = document.getElementById('noResults');
+    noResults.classList.toggle('visible', filtered.length === 0);
+
+    // Load more button
+    const btn = document.getElementById('loadMoreBtn');
+    if (visibleCount >= filtered.length || filtered.length === 0) {
+      btn.classList.add('hidden-btn');
+    } else {
+      btn.classList.remove('hidden-btn');
+    }
+  }
+
+  function updateTabCounts() {
+    const allCards = getAllCards();
+    const categories = ['all', 'tourism', 'cinematography', 'photography'];
+    categories.forEach(cat => {
+      const count = cat === 'all'
+        ? allCards.length
+        : allCards.filter(c => c.dataset.category === cat).length;
+      const el = document.getElementById('count-' + cat);
+      if (el) el.textContent = count;
+    });
+  }
+
+  // Tab click handler
+  document.getElementById('filterTabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+   activeFilter = tab.dataset.filter;
+    visibleCount = CARDS_PER_PAGE;
+    renderCards();
+    updateCTA(activeFilter);
+  });
+
+  function loadMore() {
+    const filtered = getFilteredCards();
+    visibleCount = Math.min(visibleCount + CARDS_PER_PAGE, filtered.length);
+    renderCards();
+  }
+
+  // ── CTA content per tab ──
+const ctaContent = {
+  all: {
+    title: 'Ready to Create Your Story?',
+    sub: 'Join our growing family of happy clients and travellers.',
+    btn: 'Plan Your Trip',
+    href: 'tourism.html',
+    anim: ''
+  },
+  cinematography: {
+    title: 'Lights. Camera. Let\'s Roll.',
+    sub: 'Every great film starts with a single frame. Let\'s build yours together.',
+    btn: 'Start Your Project',
+    href: 'cinemation.html',
+    anim: 'film'
+  },
+  tourism: {
+    title: 'Ready to Visit Pakistan?',
+    sub: 'The mountains are calling. Let\'s plan your journey into the wild heart of Pakistan.',
+    btn: 'Plan Your Trip',
+    href: 'tourism.html',
+    anim: 'pins'
+  },
+  photography: {
+    title: 'Ready for Your Best Photo Shots?',
+    sub: 'Golden hour is waiting. Let\'s find the perfect light, the perfect frame — just for you.',
+    btn: 'Book a Shoot',
+    href: '#',
+    anim: 'shutter'
+  }
+};
+
+function updateCTA(filter) {
+  const c = ctaContent[filter] || ctaContent.all;
+  const title = document.getElementById('ctaTitle');
+  const sub   = document.getElementById('ctaSub');
+  const btn   = document.getElementById('ctaBtn');
+  const anim  = document.getElementById('ctaBgAnim');
+
+  [title, sub, btn].forEach(el => {
+    el.classList.remove('cta-swap');
+    void el.offsetWidth;
+    el.classList.add('cta-swap');
+  });
+
+  title.textContent = c.title;
+  sub.textContent   = c.sub;
+  btn.innerHTML     = c.btn + ' <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg>';
+  btn.href          = c.href;
+  btn.onclick       = c.href !== '#' ? (e) => navigateTo(e, c.href) : null;
+
+  anim.innerHTML = '';
+  if (c.anim === 'pins') {
+    const emojis = ['📍','🏔️','✈️','🗺️','⛺'];
+    const positions = [[15,20],[75,15],[85,65],[20,70],[50,85]];
+    positions.forEach(([left, top], i) => {
+      const pin = document.createElement('span');
+      pin.className = 'cta-pin';
+      pin.textContent = emojis[i];
+      pin.style.cssText = `left:${left}%;top:${top}%;animation-delay:${i*0.6}s`;
+      anim.appendChild(pin);
+    });
+  } else if (c.anim === 'film') {
+    // Spinning reel
+    const reel = document.createElement('div');
+    reel.className = 'cta-reel';
+    anim.appendChild(reel);
+
+    // Reel inner dots
+    const reelInner = document.createElement('div');
+    reelInner.className = 'cta-reel-inner';
+    const dotAngles = [0, 60, 120, 180, 240, 300];
+    dotAngles.forEach(angle => {
+      const dot = document.createElement('div');
+      dot.className = 'cta-reel-dot';
+      const rad = (angle * Math.PI) / 180;
+      dot.style.cssText = `left: calc(50% + ${Math.cos(rad) * 44}px - 5px); top: calc(50% + ${Math.sin(rad) * 44}px - 5px);`;
+      reelInner.appendChild(dot);
+    });
+    anim.appendChild(reelInner);
+
+    // Light beams
+    for (let i = 0; i < 2; i++) {
+      const beam = document.createElement('div');
+      beam.className = 'cta-beam';
+      anim.appendChild(beam);
+    }
+
+    // Film strip
+    const stripWrap = document.createElement('div');
+    stripWrap.className = 'cta-strip-wrap';
+    const strip = document.createElement('div');
+    strip.className = 'cta-strip';
+    for (let i = 0; i < 20; i++) {
+      const frame = document.createElement('div');
+      frame.className = 'cta-frame';
+      strip.appendChild(frame);
+    }
+    stripWrap.appendChild(strip);
+    anim.appendChild(stripWrap);
+
+  } else if (c.anim === 'shutter') {
+    for (let i = 0; i < 3; i++) {
+      const ring = document.createElement('div');
+      ring.className = 'cta-shutter';
+      anim.appendChild(ring);
+    }
+  }
+}
+
+// Init
+  updateTabCounts();
+  visibleCount = CARDS_PER_PAGE;
+  renderCards();
+</script>
+</body>
+</html>

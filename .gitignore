@@ -1,0 +1,21 @@
+# Vercel local config
+.vercel
+
+# Large media assets (host on CDN instead)
+reels/
+videos/
+photos/
+
+# OS junk
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Node (if you ever add it)
+node_modules/
+.env
+.env.local

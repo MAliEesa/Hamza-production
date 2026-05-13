@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faraz — Work | Hamza Productions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --gold: #C9A84C;
+    --gold-deep: #A8832A;
+    --gold-light: #E2C47A;
+    --gold-pale: #1E1708;
+    --bg: #0D0C0A;
+    --bg-alt: #111008;
+    --text: #F0E8D6;
+    --text-muted: #9A8A6A;
+    --border: rgba(201, 168, 76, 0.18);
+    --border-strong: rgba(201, 168, 76, 0.35);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; overflow-x: hidden; }
+
+  /* ══ NAV — pixel-perfect copy from index.html ══ */
+  nav {
+    position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.7rem 1.5rem;
+    background: rgba(13,12,10,0.97); backdrop-filter: blur(20px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.12);
+    border-radius: 100px;
+    border: 1.5px solid rgba(201,168,76,0.22);
+    width: fit-content; min-width: 750px;
+    gap: 2rem;
+    opacity: 0; animation: navFadeIn 1.4s ease 0.3s forwards;
+  }
+  @keyframes navFadeIn {
+    0% { opacity: 0; transform: translateX(-50%) scaleX(0.4); }
+    60% { opacity: 1; transform: translateX(-50%) scaleX(1.03); }
+    100% { opacity: 1; transform: translateX(-50%) scaleX(1); }
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+  .logo-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; box-shadow: 0 0 8px rgba(201,168,76,0.5); }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 0.5rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.88rem; font-weight: 600; padding: 0.5rem 1.4rem; border-radius: 100px; border: 1.5px solid rgba(201,168,76,0.18); background: rgba(201,168,76,0.04); transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); display: inline-block; }
+  .nav-links a:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); color: var(--gold-light); transform: scale(1.12); }
+  .nav-links a.active { background: linear-gradient(135deg, var(--gold), var(--gold-deep)); border-color: var(--gold); color: #0D0C0A; box-shadow: 0 4px 16px rgba(201,168,76,0.35); font-weight: 700; }
+  .nav-links a:active { transform: scale(1.28) !important; }
+  .nav-links a.active:hover { transform: scale(1.15); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
+
+  /* ══ PAGE HERO ══ */
+  .page-hero {
+    min-height: 52vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 9rem 2rem 5rem;
+    background: var(--bg-alt); border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
+  }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 70% at 50% 60%, rgba(201,168,76,0.07) 0%, transparent 70%); }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold-pale); color: var(--gold-light); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.8rem; border: 1px solid rgba(201,168,76,0.25); animation: fadeUp 0.8s ease both; position: relative; }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; box-shadow: 0 0 6px rgba(201,168,76,0.6); }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.1; color: var(--text); margin-bottom: 1.2rem; position: relative; animation: fadeUp 0.8s 0.1s ease both; }
+  .page-hero h1 em { background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: normal; animation: shimmer 3s linear infinite; }
+  .page-hero p { color: var(--text-muted); font-size: 1rem; max-width: 460px; line-height: 1.8; position: relative; animation: fadeUp 0.8s 0.2s ease both; }
+
+  /* ══ SECTIONS ══ */
+  .section { padding: 5rem; }
+  .section.alt { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .section-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 520px; line-height: 1.7; }
+
+  /* ══ REELS ══ */
+  .reels-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2rem; position: relative; min-height: 0; }
+  .reel-card { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 9/16; background: var(--gold-pale); border: 1px solid var(--border); cursor: pointer; transition: border-color 0.3s, transform 0.3s; text-decoration: none; display: block; }
+  .reel-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 12px 36px rgba(201,168,76,0.1); }
+  .reel-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.82; transition: opacity 0.3s; display: block; position: absolute; inset: 0; }
+  .reel-card:hover img { opacity: 1; }
+  .reel-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; color: rgba(201,168,76,0.22); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .reel-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,12,10,0.9) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem; }
+  .reel-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+  .reel-play::after { content: ''; border-left: 17px solid var(--gold); border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
+  .reel-card:hover .reel-play { opacity: 1; }
+  .reel-title { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .reel-meta { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.06em; }
+
+  /* ══ PHOTOS ══ */
+  .photo-masonry { columns: 3; column-gap: 1.2rem; }
+  .photo-item { break-inside: avoid; margin-bottom: 1.2rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); position: relative; cursor: pointer; transition: border-color 0.3s, transform 0.3s; flex-shrink: 0; }
+  .photo-item:hover { border-color: var(--gold); transform: scale(1.01); }
+  .photo-item img { width: 100%; height: auto; display: block; opacity: 0.82; transition: opacity 0.3s; }
+  .photo-item:hover img { opacity: 1; }
+  .photo-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; background: var(--gold-pale); color: rgba(201,168,76,0.22); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .photo-cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem 1.1rem; background: linear-gradient(to top, rgba(13,12,10,0.85), transparent); font-size: 0.72rem; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.1em; opacity: 0; transform: translateY(6px); transition: all 0.3s; }
+  .photo-item:hover .photo-cap { opacity: 1; transform: translateY(0); }
+
+  /* ══ VIDEOS ══ */
+  .carousel-wrap { position:relative; padding: 0 55px; overflow: hidden; }
+  .videos-grid { display: flex; gap: 1.5rem; overflow: hidden; align-items: flex-start; }
+  .videos-grid .video-card { min-width: calc(50% - 0.75rem); max-width: calc(50% - 0.75rem); flex-shrink: 0; transition: transform 0.4s ease; }
+  #reels-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.2rem; position: relative; overflow: hidden; }
+  #reels-grid .reel-card { width: 100%; }
+  #reels-grid .reel-card:nth-child(n+6) { position: absolute; top: 0; width: calc(20% - 0.96rem); }
+  #reels-grid .reel-card:nth-child(6)  { left: calc(0% + 0rem); }
+  #reels-grid .reel-card:nth-child(7)  { left: calc(20% + 0.24rem); }
+  #reels-grid .reel-card:nth-child(8)  { left: calc(40% + 0.48rem); }
+  #reels-grid .reel-card:nth-child(9)  { left: calc(60% + 0.72rem); }
+  #reels-grid .reel-card:nth-child(10) { left: calc(80% + 0.96rem); }
+  .photo-masonry-wrap { position: relative; }
+  .photo-row { display: flex; gap: 1.2rem; overflow: hidden; }
+  .photo-row .photo-item { min-width: calc(33.33% - 0.8rem); flex-shrink: 0; margin-bottom: 0; }
+  .carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(13,12,10,0.85); border:1.5px solid rgba(201,168,76,0.4); color:var(--gold); width:42px; height:42px; border-radius:50%; font-size:1.2rem; cursor:pointer; z-index:10; display:flex; align-items:center; justify-content:center; transition: all 0.2s; }
+  .carousel-btn:hover { background:rgba(201,168,76,0.15); border-color:var(--gold); }
+  .carousel-btn.left { left:0px; }
+  .carousel-btn.right { right:0px; }
+  .video-card { background: var(--gold-pale); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); transition: border-color 0.3s, transform 0.3s; }
+  .video-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 12px 36px rgba(201,168,76,0.08); }
+  .video-embed { aspect-ratio: 16/9; background: #090806; position: relative; overflow: hidden; width: 100%; }
+  .video-embed iframe { width: 100%; height: 100%; border: none; display: block; }
+  .video-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; color: rgba(201,168,76,0.22); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .video-info { padding: 1.4rem 1.5rem; }
+  .video-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+  .video-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+  .video-tag { display: inline-block; margin-top: 0.8rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.3); padding: 0.25rem 0.75rem; border-radius: 100px; }
+  .video-desc-full { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .video-desc-full.open { max-height: 600px; overflow-y: auto; }
+  .videos-grid .video-card { align-self: start; }
+  .read-more { background: none; border: none; color: var(--gold); font-size: 0.82rem; font-weight: 600; cursor: pointer; padding: 0.4rem 0; margin-top: 0.3rem; display: block; }
+  .vid-modal { display:none; position:fixed; inset:0; z-index:9998; background:#000; overflow-y:auto; scrollbar-width:none; }
+  .vid-modal::-webkit-scrollbar { display:none; }
+  .vid-modal.open { display:block; }
+  .vid-modal-inner { max-width:100%; margin:0; padding:0; }
+  .vid-modal-video { width:100%; height:100vh; min-height:100vh; border-radius:0; overflow:hidden; position:relative; background:#000; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .vid-modal-video video { max-width:100%; max-height:100vh; width:auto; height:auto; display:block; background:#000; }
+  .vid-modal-close { position:fixed; top:1.2rem; right:1.5rem; background:rgba(0,0,0,0.6); border:1px solid rgba(201,168,76,0.4); color:var(--gold); width:40px; height:40px; border-radius:50%; font-size:1.2rem; cursor:pointer; z-index:9999; display:flex; align-items:center; justify-content:center; }
+  .vid-modal-title { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:var(--text); margin:2rem 2rem 0.5rem; }
+  .vid-modal-desc { font-size:0.92rem; color:var(--text-muted); line-height:1.8; margin:0 2rem; }
+  .vid-modal-tag { display:inline-block; margin:1rem 2rem; font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.3); padding:0.25rem 0.75rem; border-radius:100px; }
+
+  .reel-modal { display:none; position:fixed; inset:0; z-index:9998; background:rgba(0,0,0,0.95); }
+  .reel-modal.open { display:flex; align-items:center; justify-content:center; }
+  .reel-modal-close { position:fixed; top:1.2rem; right:1.5rem; background:rgba(0,0,0,0.6); border:1px solid rgba(201,168,76,0.4); color:var(--gold); width:40px; height:40px; border-radius:50%; font-size:1.2rem; cursor:pointer; z-index:9999; display:flex; align-items:center; justify-content:center; }
+  .reel-modal-inner { display:flex; align-items:center; gap:2rem; height:100vh; }
+  .reel-modal-video-wrap { height:90vh; aspect-ratio:9/16; border-radius:16px; overflow:hidden; position:relative; background:#000; flex-shrink:0; }
+  .reel-modal-video-wrap video { width:100%; height:100%; object-fit:cover; }
+  .reel-modal-mute { position:absolute; bottom:1rem; right:1rem; background:rgba(0,0,0,0.5); border:none; border-radius:50%; width:38px; height:38px; color:#fff; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .reel-modal-info { max-width:280px; color:var(--text); }
+  .reel-modal-num { font-size:0.72rem; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.8rem; }
+  .reel-modal-title { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:0.6rem; }
+  .reel-modal-desc { font-size:0.88rem; color:var(--text-muted); line-height:1.7; }
+  .reel-nav-hint { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); color:rgba(255,255,255,0.3); font-size:0.75rem; letter-spacing:0.1em; }
+
+  /* ══ FOOTER — exact copy from index.html ══ */
+  footer { background: #080706; color: #C8B898; border-top: 1px solid var(--border); }
+  .footer-top { padding: 4rem 5rem; display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+  .footer-logo span { color: var(--gold); }
+  .footer-logo .logo-dot { background: var(--gold); box-shadow: 0 0 8px rgba(201,168,76,0.5); }
+  .footer-tagline { font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 0.8rem; letter-spacing: 0.04em; }
+  .footer-desc { font-size: 0.85rem; color: #7A6A4E; line-height: 1.7; font-weight: 500; max-width: 280px; margin-bottom: 1.5rem; }
+  .footer-socials { display: flex; gap: 0.6rem; }
+  .social-btn { width: 38px; height: 38px; border-radius: 50%; background: rgba(201,168,76,0.06); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; transition: all 0.2s; border: 1px solid rgba(201,168,76,0.2); }
+  .social-btn:hover { background: rgba(201,168,76,0.18); border-color: var(--gold); }
+  .footer-links-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .footer-col { display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.5rem; }
+  .footer-col a { font-size: 0.85rem; color: #7A6A4E; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { padding: 1.5rem 5rem; display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-size: 0.78rem; color: #4A3E2C; font-weight: 500; }
+  .footer-bottom-links { display: flex; gap: 1.5rem; }
+  .footer-bottom-links a { font-size: 0.78rem; color: #4A3E2C; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .footer-bottom-links a:hover { color: #7A6A4E; }
+
+  @media (max-width: 900px) {
+    nav { min-width: unset; width: calc(100% - 2rem); padding: 0.6rem 1rem; gap: 0.8rem; }
+    .nav-links a { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+    .section { padding: 3rem 1.5rem; }
+    .photo-masonry { columns: 2; }
+    .videos-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.5rem; }
+    .footer-bottom { padding: 1rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+  }
+  @media (max-width: 480px) {
+    .photo-masonry { columns: 1; }
+    .reels-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="page-overlay" style="position:fixed;inset:0;background:#0D0C0A;z-index:9999;transform:translateY(0);transition:transform 0.7s cubic-bezier(0.76,0,0.24,1);pointer-events:none;"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="index (14).html" class="logo" onclick="navigateTo(event,'index (14).html')">
+    <div class="logo-dot"></div>
+    Hamza <span>Productions</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index (14).html" onclick="navigateTo(event,'index (14).html')">Home</a></li>
+    <li><a href="work.html" class="active">Projects</a></li>
+    <li><a href="reviews.html" onclick="navigateTo(event,'reviews.html')">Reviews</a></li>
+    <li><a href="websitecreation.html" onclick="navigateTo(event,'websitecreation.html')">Website Creation</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="page-hero">
+  <div class="hero-badge">Faraz · Creative Work</div>
+  <h1><em>Projects</em></h1>
+  <p>Faraz's work — short-form reels, photography, and cinematic videos. Add your content to each section below.</p>
+</section>
+
+<!-- ══ VIDEO MODAL ══ -->
+<div class="vid-modal" id="vidModal">
+  <button class="vid-modal-close" onclick="closeModal()">✕</button>
+  <div class="vid-modal-inner">
+    <div class="vid-modal-video">
+      <video id="modalVid" autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+      <button id="modalMuteBtn" onclick="toggleModalMute()" style="position:absolute;bottom:1rem;right:1rem;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:38px;height:38px;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">🔊</button>
+    </div>
+    <div class="vid-modal-title" id="modalTitle"></div>
+    <div class="vid-modal-desc" id="modalDesc"></div>
+    <div class="vid-modal-tag" id="modalTag"></div>
+  </div>
+</div>
+
+<!-- ══ PHOTO MODAL ══ -->
+<div id="photoModal" onclick="closePhoto()" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;cursor:zoom-out;">
+  <button onclick="closePhoto()" style="position:fixed;top:1.2rem;right:1.5rem;background:rgba(0,0,0,0.6);border:1px solid rgba(201,168,76,0.4);color:#C9A84C;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;">✕</button>
+  <img id="photoModalImg" src="" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;">
+</div>
+
+<!-- ══ REEL MODAL ══ -->
+<div class="reel-modal" id="reelModal">
+  <button class="reel-modal-close" onclick="closeReelModal()">✕</button>
+  <div class="reel-modal-inner">
+    <div class="reel-modal-video-wrap">
+      <video id="reelModalVid" autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+      <button class="reel-modal-mute" id="reelMuteBtn" onclick="toggleReelMute()">🔊</button>
+    </div>
+    <div class="reel-modal-info">
+      <div class="reel-modal-num" id="reelModalNum"></div>
+    </div>
+  </div>
+  <div class="reel-nav-hint">scroll to navigate · esc to close</div>
+</div>
+
+<!-- ══ VIDEOS ══ -->
+<section class="section alt" id="videos">
+  <div class="section-label">Long Form</div>
+  <h2 class="section-title">Videos</h2>
+  <p class="section-sub">Cinematic work, frame by frame.</p>
+  <div class="carousel-wrap">
+  <button class="carousel-btn left" onclick="slideCarousel('videos-grid', -1)">‹</button>
+  <div class="videos-grid" id="videos-grid">
+
+    <div class="video-card">
+      <div class="video-embed">
+          <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;display:block;background:#090806;" id="vid1"><source src="videos/v1.mp4" type="video/mp4"></video>
+          <button onclick="toggleMute('vid1',this)" style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;">🔇</button>
+          <button onclick="openModal('v1.mp4','Sindh Desert Expedition — Cinematic Event Reel','Another cinematic project wrapped. 🎬 Had the opportunity to create a full cinematic event reel for influencer Qasim Umer during the Sindh Desert Expedition, hosted by the only and one of the biggest offroading club &quot;Offroad Titans&quot; in Pakistan, truly a massive achievement and an unforgettable experience.<br><br>From the raw desert atmosphere to the offroad action and community energy, the entire project was captured with a cinematic vision and brought to life through editing, storytelling, and professional color grading.<br><br>The goal was simple: make people feel the adventure, not just watch it.<br><br>Grateful to be trusted with projects like this and excited for what\'s coming next.<br><br>Reel available on Qasim Umer and Offroad Titans official pages.<br><br><a href=\'https://lnkd.in/dBeTK25g\' target=\'_blank\' style=\'color:#C9A84C;font-weight:600;text-decoration:none;\'>&#9658; Watch the Reel</a>','Cinematography')" style="position:absolute;bottom:10px;right:52px;background:rgba(0,0,0,0.5);border:none;border-radius:4px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:white;">⤢</button>
+        </div>
+      <div class="video-info">
+        <div class="video-title">Sindh Desert Expedition — Cinematic Event Reel</div>
+        <div class="video-desc">Another cinematic project wrapped. 🎬</div>
+        <div class="video-desc-full">Another cinematic project wrapped. 🎬 Had the opportunity to create a full cinematic event reel for influencer Qasim Umer during the Sindh Desert Expedition, hosted by the only and one of the biggest offroading club "Offroad Titans" in Pakistan, truly a massive achievement and an unforgettable experience.<br><br>From the raw desert atmosphere to the offroad action and community energy, the entire project was captured with a cinematic vision and brought to life through editing, storytelling, and professional color grading.<br><br>The goal was simple: make people feel the adventure, not just watch it.<br><br>Grateful to be trusted with projects like this and excited for what's coming next.<br><br>Reel available on Qasim Umer and Offroad Titans official pages.<br><br><a href="https://lnkd.in/dBeTK25g" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600;">▶ Watch the Reel</a></div>
+        <button class="read-more" onclick="this.previousElementSibling.classList.toggle('open');this.textContent=this.previousElementSibling.classList.contains('open')?'Show less ▲':'Read more ▼'">Read more ▼</button>
+        <span class="video-tag">Cinematography</span>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-embed">
+        <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;display:block;background:#090806;" id="vid2"><source src="videos/v2.mp4" type="video/mp4"></video>
+          <button onclick="toggleMute('vid2',this)" style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;">🔇</button>
+          <button onclick="openModal('v2.mp4','Badgoi Top & Dasht-e-Laila 4x4 Offroad Expedition','Another milestone unlocked. 🎬🏔️<br><br>My first project with Qasim Umer was the Badgoi Top & Dasht-e-Laila 4x4 Offroad Expedition an unforgettable adventure filmed in extreme negative temperatures at one of the toughest and most challenging locations in Pakistan.<br><br>From harsh weather conditions and dangerous terrains to capturing the raw beauty of the mountains and the spirit of offroad adventure, this project pushed both creativity and endurance to another level.<br><br>Proud to share that the vlog has now crossed 252K+ views on Qasim Umer\'s YouTube channel.<br><br>Grateful for the trust, the experience, and the opportunity to turn real adventures into cinematic stories.<br><br>VLOG LINK : <a href=\'https://lnkd.in/djqjSXXv\' target=\'_blank\' style=\'color:#C9A84C;font-weight:600;text-decoration:none;\'>https://lnkd.in/djqjSXXv</a>','4x4 Offroad')" style="position:absolute;bottom:10px;right:52px;background:rgba(0,0,0,0.5);border:none;border-radius:4px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:white;">⤢</button>
+        </div>
+      <div class="video-info">
+        <div class="video-title">Badgoi Top & Dasht-e-Laila 4x4 Offroad Expedition</div>
+        <div class="video-desc">Another milestone unlocked. 🎬🏔️</div>
+        <div class="video-desc-full">My first project with Qasim Umer was the Badgoi Top & Dasht-e-Laila 4x4 Offroad Expedition an unforgettable adventure filmed in extreme negative temperatures at one of the toughest and most challenging locations in Pakistan.<br><br>From harsh weather conditions and dangerous terrains to capturing the raw beauty of the mountains and the spirit of offroad adventure, this project pushed both creativity and endurance to another level.<br><br>Proud to share that the vlog has now crossed 252K+ views on Qasim Umer's YouTube channel.<br><br>Grateful for the trust, the experience, and the opportunity to turn real adventures into cinematic stories.<br><br>VLOG LINK : <a href="https://lnkd.in/djqjSXXv" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600;">https://lnkd.in/djqjSXXv</a></div>
+        <button class="read-more" onclick="this.previousElementSibling.classList.toggle('open');this.textContent=this.previousElementSibling.classList.contains('open')?'Show less ▲':'Read more ▼'">Read more ▼</button>
+        <span class="video-tag">4x4 Offroad</span>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-embed">
+        <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;display:block;background:#090806;" id="vid3"><source src="videos/v30001-1082.mp4" type="video/mp4"></video>
+          <button onclick="toggleMute('vid3',this)" style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;">🔇</button>
+          <button onclick="openModal('v30001-1082.mp4','Cinematic Color Grading Showcase','A cinematic color grading showcase crafted to highlight the power of visual transformation through tone, contrast, mood, and storytelling.<br><br>This before-and-after reel demonstrates how raw footage is elevated into polished cinematic visuals using professional grading techniques, color harmony, and film-inspired looks.<br><br>Focused on creating emotion, atmosphere, and depth, each frame reflects a strong visual identity tailored for high-end films, commercials, travel content, and digital storytelling.','Cinematography')" style="position:absolute;bottom:10px;right:52px;background:rgba(0,0,0,0.5);border:none;border-radius:4px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:white;">⤢</button>
+        </div>
+      <div class="video-info">
+        <div class="video-title">Snow Expedition Cinematic Trailer — Offroad Titans</div>
+        <div class="video-desc">A high-intensity cinematic trailer for a snow expedition — drama, power, and immersive storytelling.</div>
+        <div class="video-desc-full">A high-intensity cinematic trailer crafted for a snow expedition adventure, featuring dramatic visuals, powerful pacing, and immersive storytelling.<br><br>Produced for the official handles of Offroad Titans, this reel captures the raw energy of extreme terrain, off-road culture, and the thrill of exploration through dynamic cinematography, atmospheric sound design, and cinematic color grading.<br><br>Designed to create impact, tension, and emotion — turning the journey into a film-like experience.</div>
+        <button class="read-more" onclick="this.previousElementSibling.classList.toggle('open');this.textContent=this.previousElementSibling.classList.contains('open')?'Show less ▲':'Read more ▼'">Read more ▼</button>
+        <span class="video-tag">Cinematography</span>
+      </div>
+    </div>
+
+<div class="video-card">
+      <div class="video-embed">
+        <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;display:block;background:#090806;" id="vid4"><source src="videos/v4.mp4" type="video/mp4"></video>
+          <button onclick="toggleMute('vid4',this)" style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;">🔇</button>
+          <button onclick="openModal('v4.mp4','Cinematic Color Grading Showcase','A cinematic color grading showcase crafted to highlight the power of visual transformation through tone, contrast, mood, and storytelling.<br><br>This before-and-after reel demonstrates how raw footage is elevated into polished cinematic visuals using professional grading techniques, color harmony, and film-inspired looks.<br><br>Focused on creating emotion, atmosphere, and depth, each frame reflects a strong visual identity tailored for high-end films, commercials, travel content, and digital storytelling.','Cinematography')" style="position:absolute;bottom:10px;right:52px;background:rgba(0,0,0,0.5);border:none;border-radius:4px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:white;">⤢</button>
+        </div>
+      <div class="video-info">
+        <div class="video-title">Cinematic Color Grading Showcase</div>
+        <div class="video-desc">A cinematic color grading showcase — raw footage elevated into polished visuals.</div>
+        <div class="video-desc-full">A cinematic color grading showcase crafted to highlight the power of visual transformation through tone, contrast, mood, and storytelling.<br><br>This before-and-after reel demonstrates how raw footage is elevated into polished cinematic visuals using professional grading techniques, color harmony, and film-inspired looks.<br><br>Focused on creating emotion, atmosphere, and depth, each frame reflects a strong visual identity tailored for high-end films, commercials, travel content, and digital storytelling.</div>
+        <button class="read-more" onclick="this.previousElementSibling.classList.toggle('open');this.textContent=this.previousElementSibling.classList.contains('open')?'Show less ▲':'Read more ▼'">Read more ▼</button>
+        <span class="video-tag">Cinematography</span>
+      </div>
+    </div>
+    
+  </div>
+  <button class="carousel-btn right" onclick="slideCarousel('videos-grid', 1)">›</button>
+  </div>
+</section>
+
+<!-- ══ PHOTOS ══ -->
+<section class="section" id="photos">
+  <div class="section-label">Photography</div>
+  <h2 class="section-title">Photos</h2>
+  <p class="section-sub">A glimpse through the lens.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;align-items:stretch;">
+    <div class="photo-item" onclick="openPhoto('photos/p1.jpg')">
+      <img src="photos/p1.jpg" alt="Photo 1">
+    </div>
+
+    <div class="photo-item" onclick="openPhoto('photos/p2.jpg')">
+      <img src="photos/p2.jpg" alt="Photo 2">
+    </div>
+
+    <div class="photo-item" onclick="openPhoto('photos/p3.jpg')">
+      <img src="photos/p3.jpg" alt="Photo 3">
+    </div>
+  </div>
+</section>
+
+<!-- ══ REELS ══ -->
+<section class="section alt" id="reels">
+  <div class="section-label">Short Form</div>
+  <h2 class="section-title">Reels</h2>
+  <p class="section-sub">Reels</p>
+  <div class="carousel-wrap">
+  <button class="carousel-btn left" onclick="slideCarousel('reels-grid', -1)">‹</button>
+  <div class="reels-grid" id="reels-grid">
+
+    <div class="reel-card" onclick="openReelModal(0)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r1.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    <div class="reel-card" onclick="openReelModal(1)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r2.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    <div class="reel-card" onclick="openReelModal(2)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r3.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    <div class="reel-card" onclick="openReelModal(3)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r4.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+    
+  <div class="reel-card" onclick="openReelModal(4)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r5.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    <div class="reel-card" onclick="openReelModal(5)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r6.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    <div class="reel-card" onclick="openReelModal(6)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r7.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    <div class="reel-card" onclick="openReelModal(7)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r8.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    <div class="reel-card" onclick="openReelModal(8)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r9.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    <div class="reel-card" onclick="openReelModal(9)">
+      <video autoplay loop muted playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="reels/r10.mp4" type="video/mp4">
+      </video>
+      <div class="reel-overlay">
+        <div class="reel-title">Reel Title</div>
+        <div class="reel-meta">Location · Date</div>
+      </div>
+    </div>
+
+    </div>
+  <button class="carousel-btn right" onclick="slideCarousel('reels-grid', 1)">›</button>
+  </div>
+</section>
+
+<!-- ══ FOOTER — exact copy from index.html ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><div class="logo-dot"></div>Hamza <span>Productions</span></div>
+      <p class="footer-tagline">Explore Pakistan. Capture Every Moment.</p>
+      <p class="footer-desc">Based in Pakistan, serving travelers and brands worldwide with premium tourism experiences and cinematic video production.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">📘</a>
+        <a href="#" class="social-btn">📸</a>
+        <a href="#" class="social-btn">▶️</a>
+        <a href="#" class="social-btn">💼</a>
+      </div>
+    </div>
+    <div class="footer-links-group" style="grid-template-columns: 1fr;">
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#">About Us</a>
+        <a href="#">Our Work</a>
+        <a href="#">Contact</a>
+        <a href="#">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Hamza Productions — Pakistan. All rights reserved.</div>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let reelPage = 0;
+  const reelsPerPage = 5;
+  let currentReel = 0;
+
+  function slideCarousel(id, dir) {
+    if (id === 'reels-grid') {
+      animateReels(dir);
+    } else {
+      const grid = document.getElementById(id);
+      const item = grid.children[0];
+      const gap = parseInt(getComputedStyle(grid).gap);
+      const itemW = item.offsetWidth + gap;
+      grid.scrollBy({ left: dir * itemW * 2, behavior: 'smooth' });
+    }
+  }
+
+  function animateReels(dir) {
+    const grid = document.getElementById('reels-grid');
+    const allCards = Array.from(grid.children);
+    const totalPages = Math.ceil(allCards.length / reelsPerPage);
+    const newPage = reelPage + dir;
+    if (newPage < 0 || newPage >= totalPages) return;
+
+    const currentCards = allCards.slice(reelPage * reelsPerPage, reelPage * reelsPerPage + reelsPerPage);
+    const nextCards = allCards.slice(newPage * reelsPerPage, newPage * reelsPerPage + reelsPerPage);
+
+    // hide all first
+    allCards.forEach(c => { c.style.visibility = 'hidden'; c.style.opacity = '1'; c.style.transform = 'translateX(0)'; });
+
+    // show current visible
+    currentCards.forEach(c => { c.style.visibility = 'visible'; });
+
+    // fly out current cards one by one from left
+    currentCards.forEach((c, i) => {
+      setTimeout(() => {
+        c.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        c.style.opacity = '0';
+        c.style.transform = 'translateX(-60px)';
+      }, i * 80);
+    });
+
+    // after fly out, bring in next cards from right one by one
+    const flyOutDone = currentCards.length * 80 + 280;
+    nextCards.forEach((c, i) => {
+      setTimeout(() => {
+        c.style.transition = 'none';
+        c.style.transform = 'translateX(60px)';
+        c.style.opacity = '0';
+        c.style.visibility = 'visible';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            c.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            c.style.opacity = '1';
+            c.style.transform = 'translateX(0)';
+          });
+        });
+      }, flyOutDone + i * 100);
+    });
+
+    reelPage = newPage;
+  }
+
+  // init reels — show only first page
+  window.addEventListener('load', () => {
+    setTimeout(() => { document.getElementById('page-overlay').style.transform = 'translateY(-100%)'; }, 100);
+    const grid = document.getElementById('reels-grid');
+    const allCards = Array.from(grid.children);
+    allCards.forEach((c, i) => {
+      c.style.visibility = i < reelsPerPage ? 'visible' : 'hidden';
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const vid = entry.target;
+        if (entry.isIntersecting) { vid.play(); } else { vid.pause(); }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.video-embed video, .reel-card video').forEach(v => observer.observe(v));
+  });
+  const reelSrcs = [
+    'reels/r1.mp4','reels/r2.mp4','reels/r3.mp4','reels/r4.mp4','reels/r5.mp4',
+    'reels/r6.mp4','reels/r7.mp4','reels/r8.mp4','reels/r9.mp4','reels/r10.mp4'
+  ];
+
+  function openReelModal(index) {
+    currentReel = index;
+    const vid = document.getElementById('reelModalVid');
+    vid.src = reelSrcs[currentReel];
+    vid.muted = false;
+    vid.play();
+    document.getElementById('reelModalNum').textContent = 'Reel ' + (currentReel + 1) + ' of ' + reelSrcs.length;
+    document.getElementById('reelMuteBtn').textContent = '🔊';
+    document.getElementById('reelModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeReelModal() {
+    const vid = document.getElementById('reelModalVid');
+    vid.pause(); vid.src = '';
+    document.getElementById('reelModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function toggleReelMute() {
+    const vid = document.getElementById('reelModalVid');
+    vid.muted = !vid.muted;
+    document.getElementById('reelMuteBtn').textContent = vid.muted ? '🔇' : '🔊';
+  }
+
+  let scrollLock = false;
+  document.addEventListener('wheel', (e) => {
+    if (!document.getElementById('reelModal').classList.contains('open')) return;
+    if (scrollLock) return;
+    scrollLock = true;
+    setTimeout(() => { scrollLock = false; }, 800);
+    if (e.deltaY > 0 && currentReel < reelSrcs.length - 1) openReelModal(currentReel + 1);
+    else if (e.deltaY < 0 && currentReel > 0) openReelModal(currentReel - 1);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (document.getElementById('reelModal').classList.contains('open')) closeReelModal();
+      if (document.getElementById('photoModal').style.display === 'flex') closePhoto();
+      if (document.getElementById('vidModal').classList.contains('open')) closeModal();
+    }
+    if (!document.getElementById('reelModal').classList.contains('open')) return;
+    if (e.key === 'ArrowDown' && currentReel < reelSrcs.length - 1) openReelModal(currentReel + 1);
+    if (e.key === 'ArrowUp' && currentReel > 0) openReelModal(currentReel - 1);
+  });
+  function toggleModalMute() {
+    const vid = document.getElementById('modalVid');
+    vid.muted = !vid.muted;
+    document.getElementById('modalMuteBtn').textContent = vid.muted ? '🔇' : '🔊';
+  }
+
+  function openModal(src, title, desc, tag) {
+    document.querySelectorAll('.video-embed video').forEach(v => { v.pause(); v.muted = true; });
+    const modal = document.getElementById('vidModal');
+    const vid = document.getElementById('modalVid');
+    vid.src = 'videos/' + src;
+    vid.muted = false;
+    vid.currentTime = 0;
+    vid.play();
+    document.getElementById('modalMuteBtn').textContent = '🔊';
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDesc').innerHTML = desc;
+    document.getElementById('modalTag').textContent = tag;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    const modal = document.getElementById('vidModal');
+    const vid = document.getElementById('modalVid');
+    vid.pause();
+    vid.src = '';
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    document.querySelectorAll('.video-embed video').forEach(v => { v.play(); v.muted = true; });
+  }
+  function toggleMute(id, btn) {
+    const v = document.getElementById(id);
+    v.muted = !v.muted;
+    btn.textContent = v.muted ? '🔇' : '🔊';
+  }
+  function openPhoto(src) {
+    const m = document.getElementById('photoModal');
+    document.getElementById('photoModalImg').src = src;
+    m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closePhoto() {
+    document.getElementById('photoModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function navigateTo(e, url) {
+    e.preventDefault();
+    const overlay = document.getElementById('page-overlay');
+    overlay.style.transition = 'transform 0.6s cubic-bezier(0.76,0,0.24,1)';
+    overlay.style.transform = 'translateY(0)';
+    setTimeout(() => { window.location.href = url; }, 600);
+  }
+</script>
+</body>
+</html>
