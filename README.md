@@ -19,7 +19,7 @@ Deployed on **Vercel**: [hamzepro.vercel.app](https://hamzepro.vercel.app)
 
 ## Page Breakdown
 
-### `index (14).html` — Homepage
+### `index.html` — Homepage
 - Full-screen hero with a background image and fade-in headline
 - **Plan Your Tour** button opens a rich modal form with:
   - Province + city selector (all 8 provinces/regions)
@@ -59,7 +59,7 @@ Deployed on **Vercel**: [hamzepro.vercel.app](https://hamzepro.vercel.app)
 
 ```
 /
-├── index (14).html         # Homepage
+├── index.html         # Homepage
 ├── work.html               # Projects page
 ├── reviews.html            # Reviews page
 ├── websitecreation.html    # Developer portfolio
@@ -68,21 +68,21 @@ Deployed on **Vercel**: [hamzepro.vercel.app](https://hamzepro.vercel.app)
 │
 ├── photos/
 │   ├── pic1.png            # Developer photo (websitecreation page)
-│   ├── p1.jpg              # Work page photos
-│   ├── p2.jpg
-│   ├── p3.jpg
-│   ├── pexels-mohsinshabbir-30665958.jpg   # Islamabad card
-│   ├── pexels-aksbykas-5106895.jpg         # Sindh card
-│   ├── pexels-ameerhamza6-7998727.jpg      # Swat Valley card
-│   ├── Minar_e_Pakistan.jpg                # Lahore card
-│   └── Copilot_20260506_214021.png         # Homepage hero background
+│   ├── pic21.jpg           # Work page photos
+│   ├── pic32.jpg
+│   ├── pic43.jpg
+│   ├── pic5.jpg            # Islamabad card
+│   ├── pic6.jpg            # Sindh card
+│   ├── pic7.jpg            # Swat Valley card
+│   ├── pic8.jpg            # Lahore card
+│   └── pic9.png            # Homepage hero background
 │
 ├── videos/
-│   ├── trailor0001-1904.mp4    # Homepage trailer
-│   ├── v1.mp4                  # Sindh Desert Expedition reel
-│   ├── v2.mp4                  # Badgoi Top expedition
-│   ├── v30001-1082.mp4         # Snow Expedition trailer
-│   └── v4.mp4                  # Color Grading Showcase
+│   ├── v1.mp4              # Homepage trailer
+│   ├── v2.mp4              # Sindh Desert Expedition reel
+│   ├── v3.mp4              # Badgoi Top expedition
+│   ├── v4.mp4              # Snow Expedition trailer
+│   └── v5.mp4              # Color Grading Showcase
 │
 └── reels/
     ├── r1.mp4 — r10.mp4        # Short-form reels (work page)
